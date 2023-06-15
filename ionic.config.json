@@ -1,0 +1,7 @@
+{
+  "name": "Cab Finder",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
