@@ -1,11 +1,9 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Splash } from './Pages/Splash';
 import Home from './Pages/Home';
 
 function App() {
   return (
-    <Home/>
+    <Splash/>
   );
 }
 

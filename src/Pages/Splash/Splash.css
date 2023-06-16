@@ -1,0 +1,15 @@
+.black-container {
+    animation-name: example;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes example {
+    from {
+        height: 20vh;
+    }
+
+    to {
+        height: 50vh;
+    }
+}
