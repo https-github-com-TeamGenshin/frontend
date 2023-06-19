@@ -1,0 +1,51 @@
+.drawer-width {
+  animation-name: drawer-width-key;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes drawer-width-key {
+  from {
+    width: 25vw;
+  }
+
+  to {
+    width: 50vw;
+  }
+}
+
+.drawer-width-min {
+  animation-name: drawer-width-min-key;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes drawer-width-min-key {
+  from {
+    width: 50vw;
+  }
+
+  to {
+    width: 25vw;
+  }
+}
+
+.drawer-width-0 {
+  animation-name: drawer-width-0-key;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes drawer-width-0-key {
+  from {
+    width: 25vw;
+  }
+
+  to {
+    width: 0vw;
+  }
+}
+
+.hidden * {
+  display: none;
+}
