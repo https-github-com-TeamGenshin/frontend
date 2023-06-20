@@ -5,7 +5,10 @@ const config: CapacitorConfig = {
   appName: 'Cab Finder',
   webDir: 'build',
   server: {
-    androidScheme: 'https'
+    androidScheme: "http",
+    allowNavigation: [
+      "http://192.168.1.11:5000"
+    ]
   }
 };
 

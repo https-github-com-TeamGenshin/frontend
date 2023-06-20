@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { loginAction } from '../../store/login-slice';
 import { useNavigate } from 'react-router-dom';
 import { upDateDrawerFront, upDateDrawerBackTo0 } from './DrawerUtils';
+import { message } from 'antd';
 
 
 
@@ -18,14 +19,11 @@ export const Drawer = ({ trigger }: { trigger: any }) => {
     const [state, setstate] = useState<number>(0)
 
     const Logout = () => {
+        message.success("Logout Successfully")
         dispatch(loginAction.logout())
         localStorage.removeItem("token")
         navigate("/")
     }
-
-    useEffect(() => {
-        console.log(state)
-    }, [state])
 
     useEffect(() => {
         if (trigger) {
