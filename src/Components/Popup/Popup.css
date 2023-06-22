@@ -1,0 +1,34 @@
+.OTP-popup {
+  animation-name: OTP-popup-key;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes OTP-popup-key {
+  from {
+    height: 0vh;
+  }
+
+  to {
+    height: 40vh;
+  }
+}
+
+.OTP-popup-remove {
+  animation-name: OTP-popup-remove-key;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  overflow: hidden;
+}
+
+@keyframes OTP-popup-remove-key {
+  from {
+    height: 40vh;
+  }
+
+  to {
+    height: 0vh;
+  }
+}
+
+

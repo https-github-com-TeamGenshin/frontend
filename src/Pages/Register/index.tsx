@@ -5,10 +5,10 @@ import { Page3 } from './Page3';
 
 export const Register: React.FC = () => {
 
-  const [page, setpage] = useState(0)
+  const [page, setpage] = useState(1)
 
   return (
-    <div className='flex w-screen '>
+    <div>
       {page === 0 && <Page1 setpage={setpage} />}
       {page === 1 && <Page2 setpage={setpage} />}
       {page === 2 && <Page3 setpage={setpage} />}

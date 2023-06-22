@@ -14,12 +14,13 @@ const Home = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
-  const Handle$Response$VerifyToken = (data : any) => {
-    if(data.status === 500){
+  const Handle$Response$VerifyToken = (data: any) => {
+    dispatch(loginAction.addloader({ loader: false }))
+    if (data.status === 500) {
       message.error(data.data)
       navigate("/")
     }
-    dispatch(loginAction.addLogin({ _id: data.data }))
+    else dispatch(loginAction.addLogin({ _id: data.data }))
   }
 
 
@@ -28,6 +29,7 @@ const Home = () => {
       navigate("/login");
     }
     else {
+      dispatch(loginAction.addloader({ loader: true }))
       get$verifyUserToken().then((data) => Handle$Response$VerifyToken(data)).catch(err => console.log(err))
     }
   }, [])
@@ -36,7 +38,7 @@ const Home = () => {
     <div className="text-white bg-slate-800 h-screen w-screen">
       {/* <div className='text-xl'>Home Screen</div> */}
       <MenuOutlined onClick={() => setTrigger(trigger + 1)} />
-      <Link to = "/register">Register</Link>
+      <Link to="/register">Register</Link>
       <Drawer trigger={trigger} />
     </div>
   )
