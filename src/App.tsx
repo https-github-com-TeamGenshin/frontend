@@ -6,8 +6,8 @@ import { setBaseURL } from './API';
 import { Register } from './Pages/Register';
 import { ForgetPassword } from "./Pages/ForgetPassword/index"
 import { Loader } from './Components/Loader';
-import { CabLists } from './Pages/CabLists';
-import { DriverLists } from './Pages/DriverLists';
+import { Cabs } from './Pages/Program/Cabs';
+import { Driver } from './Pages/Program/Driver';
 
 
 function App() {
@@ -23,8 +23,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
-        <Route path="/cablists" element={<CabLists />} />
-        <Route path="/driverLists" element={<DriverLists />} />
+        <Route path="/cabs" element={<Cabs />} />
+        <Route path="/drivers" element={<Driver />} />
       </Routes>
     </Router>
 

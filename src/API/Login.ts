@@ -47,7 +47,7 @@ export const get$verifyUserToken = async (): Promise<
     console.log(response.data.data.user);
     return {
       status: 200,
-      data: response.data.data.user,
+      data: response.data.data,
     };
   } catch (err: any) {
     if (err.message === "Network Error") {

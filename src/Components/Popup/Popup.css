@@ -2,6 +2,7 @@
   animation-name: OTP-popup-key;
   animation-duration: 1s;
   animation-fill-mode: forwards;
+  overflow: hidden;
 }
 
 @keyframes OTP-popup-key {
@@ -10,7 +11,7 @@
   }
 
   to {
-    height: 40vh;
+    height: 50vh;
   }
 }
 

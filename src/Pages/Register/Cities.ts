@@ -1600,11 +1600,6 @@ export const Cities = [
         "state": "Bihar"
     },
     {
-        "id": "321",
-        "name": "Aurangabad",
-        "state": "Maharashtra"
-    },
-    {
         "id": "322",
         "name": "Jehanabad",
         "state": "Bihar"
