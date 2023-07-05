@@ -8,12 +8,15 @@ import { loginAction } from '../../store/login-slice';
 import { MenuOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import { Navigator } from '../../Components/Navigator';
-import { AjinkyaAutoComplete } from '../../Components/Autocomplete';
+import { CitiesAutoComplete } from '../../Components/Autocomplete/Cities';
+
 
 const Home = () => {
 
+
   const [trigger, setTrigger] = useState(0);
   const [city, setcity] = useState<string>("")
+  
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
@@ -67,11 +70,11 @@ const Home = () => {
       <div className='p-6 flex flex-col gap-6 items-center'>
         <select onChange={(ev) => dispatch(loginAction.addType({ type: ev.target.value }))} className='p-1 rounded w-[60vw] outline-none' name="Vehicle">
           <option value="">Vehicle Type</option>
-          <option value="2">Two Wheeler</option>
-          <option value="3">Three Wheeler</option>
-          <option value="4">Four Wheeler</option>
+          <option value="two-wheeler">Two Wheeler</option>
+          <option value="three-wheeler">Three Wheeler</option>
+          <option value="four-wheeler">Four Wheeler</option>
         </select>
-        <AjinkyaAutoComplete city={city} setcity={setcity} />
+        <CitiesAutoComplete city={city} setcity={setcity} />
       </div>
       <div>
         <section className='flex flex-col items-center justify-center gap-3 w-full'>

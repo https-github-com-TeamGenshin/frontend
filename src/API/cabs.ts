@@ -1,31 +1,17 @@
 import axios from "axios";
-
+import {ResponseForFiltered,ResponseForSearched} from "./interfaces";
 const headers = {
   Authorization:
     "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkcml2ZXIiOiI2NDkxNDY4MTBlY2IyZTFkMWY1MzJlZmYiLCJpYXQiOjE2ODcyNDIzOTl9.ExJi-FCQ_kZWZQASUD1TtXN3ZaQ3gn8a1QGG5ao5VOc",
   "Content-Type": "application/json",
 };
 
-interface ResponseForFilteredCabs {
-  Req: {
-    status: number;
-    totalChunks: number | undefined;
-    data: Object[] | undefined;
-  };
-}
 
-interface ResponseForSearchedCabs {
-  Req: {
-    status: number;
-    previouslyAccepted: Object[] | undefined;
-    data: Object[] | undefined;
-  };
-}
 
 export const put$getCabs = async (
   filters: object,
   chunk: number
-): Promise<ResponseForFilteredCabs["Req"]> => {
+): Promise<ResponseForFiltered["Req"]> => {
   try {
     const response = await axios.put(
       `api/cab/getAllFilteredCabs?chunk=${chunk}`,
@@ -51,7 +37,7 @@ export const put$getCabs = async (
 
 export const put$searchCabs = async (
   search: string
-): Promise<ResponseForSearchedCabs["Req"]> => {
+): Promise<ResponseForSearched["Req"]> => {
   try {
     const response = await axios.put("api/cab/getAllFilteredCabs", search, {
       headers,

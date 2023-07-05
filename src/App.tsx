@@ -8,7 +8,8 @@ import { ForgetPassword } from "./Pages/ForgetPassword/index"
 import { Loader } from './Components/Loader';
 import { Cabs } from './Pages/Program/Cabs';
 import { Driver } from './Pages/Program/Driver';
-
+import Maps from './Components/Maps';
+// import { New } from './Components/Maps/New';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/cabs" element={<Cabs />} />
         <Route path="/drivers" element={<Driver />} />
+        <Route path="/maps" element={<Maps />} />
       </Routes>
     </Router>
 

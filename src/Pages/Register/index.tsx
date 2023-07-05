@@ -5,7 +5,7 @@ import { Page3 } from './Page3';
 
 export const Register: React.FC = () => {
 
-  const [page, setpage] = useState(0)
+  const [page, setpage] = useState(1)
 
   return (
     <div>

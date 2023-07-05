@@ -18,14 +18,20 @@ export const Cabs = () => {
   const totalChunk = useRef<number | undefined>(0)
 
   useEffect(() => {
-    put$getCabs({
+
+    const DataToSend = {
       "location": location,
       "type": RequestDetails.type,
       "colour": colour,
       "fuel_type": fuel_type,
       hrs_rate: hrs_rate,
       kms_rate: kms_rate,
-    }, chunk)
+    }
+
+    console.log(DataToSend)
+
+
+    put$getCabs(DataToSend, chunk)
       .then(data => {
         if(data.totalChunks === 0){
           message.error("No cabs to show")

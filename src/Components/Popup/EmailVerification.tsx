@@ -115,12 +115,13 @@ export const EmailVerification = ({ setUserPopup }: { setUserPopup: any }) => {
                             <input onKeyDown={(data) => Handle$OTPBack(data.key, 3)} type="number" onChange={(event) => Handle$OTPInputs(event.target.value.toString(), 3)} id="otp-3" className='w-4 h-5 text-xl font-bold outline-none'></input>
                         </div>
 
-                    </div>}
+                    </div>
+                    }
                     {
                         state === 1 && <>
                             <button id="submit-btn" onKeyDown={(data) => Handle$OTPBack(data.key, 4)} onClick={() => Handle$OTP()} className='w-[80vw] rounded-lg p-4 text-white bg-[#14224a]'>Submit</button>
                             <button id="submit-btn" onClick={() => Handle$Email()} className='w-[80vw] p-2 rounded-2xl text-black bg-white'>Re-Send OTP</button>
-                            <div onClick={() => {setstate(0)}} className='text-white text-xl'>Cancel</div>
+                            <div onClick={() => { setstate(0) }} className='text-white text-xl'>Cancel</div>
                         </>
                     }
                     {state === 0 && <div className='bg-white w-[75vw] flex items-center gap-3 p-3 rounded-xl'>

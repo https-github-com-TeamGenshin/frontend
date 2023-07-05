@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ResponseForFiltered,ResponseForSearched} from "./interfaces";
 
 const headers = {
   Authorization:
@@ -6,26 +7,26 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-interface Response {
-  Req: { status: number; data: Object[] | undefined };
-}
 
-export const put$getDriversByType = async (
-  type: object
-): Promise<Response["Req"]> => {
+
+export const put$getDrivers = async (
+  filters: object
+): Promise<ResponseForFiltered["Req"]> => {
   try {
-    console.log(headers, type);
-    const response = await axios.put("api/driver/getDriversbyType", type, {
+    console.log(headers, filters);
+    const response = await axios.put("api/driver/getAllFilteredDrivers", filters, {
       headers,
     });
     console.log(response);
     return {
       status: response.status,
-      data: response.data,
+      totalChunks: response.data.totalChunks,
+      data: response.data.chunkData,
     };
   } catch (error: any) {
     return {
       status: error.response?.status || 500,
+      totalChunks: 0,
       data: error.response || "Internal Server Error",
     };
   }
