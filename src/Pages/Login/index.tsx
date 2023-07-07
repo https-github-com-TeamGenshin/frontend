@@ -34,7 +34,7 @@ export const Login = () => {
   return (
     <div>
       <div className='text-black p-8 flex flex-col items-center gap-4'>
-        <img className='w-[20vw]' src={logo}></img>
+        <img className='w-[20vw] bg-black rounded-full' src={logo}></img>
         <p className='text-2xl font-semibold text-center'>Welcome!</p>
       </div>
       <div className='flex flex-col w-screen items-center gap-5'>

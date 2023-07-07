@@ -33,6 +33,7 @@ const loginSlice = createSlice({
     loader: false,
     isEmailVerify: false,
     isPhoneVerify: false,
+    isDriver: false,
   },
   reducers: {
     addRequestDetails(state, action) {
@@ -84,7 +85,9 @@ const loginSlice = createSlice({
     addRequestStatus(state, action) {
       state.RequestDetails.request_status = action.payload.request_status;
     },
-
+    addIsDriver(state, action) {
+      state.isDriver = action.payload.isDriver;
+    },
 
 
 

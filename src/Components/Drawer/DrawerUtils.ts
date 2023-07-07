@@ -1,3 +1,5 @@
+import { utilsActions } from "../../store/utils-slice";
+
 export const upDateDrawerFront = (setstate : any) => {
     const drawerButton = document.getElementById("forward-drawer");
     if (drawerButton) {
@@ -13,7 +15,7 @@ export const upDateDrawerFront = (setstate : any) => {
     }, 1000)
 }
 
-export const upDateDrawerBackTo0 = (setstate : any) => {
+export const upDateDrawerBackTo0 = (dispatch : any) => {
     const drawerButton = document.getElementById("forward-drawer");
     if (drawerButton) {
         drawerButton.style.display = "none";
@@ -25,6 +27,6 @@ export const upDateDrawerBackTo0 = (setstate : any) => {
     document.getElementById("drawer")?.classList.add("hidden")
     document.getElementById("drawer")?.classList.add("drawer-width-0")
     setTimeout(() => {
-        setstate(0)
+        dispatch(utilsActions.toggleDrawer({showDrawer: 0}))
     }, 1000)
 }   

@@ -6,10 +6,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import cab from "../../Assets/cab.jpg"
 import { post$validateEmail } from '../../API/OTP';
 import jwtDecode from "jwt-decode"
-import { message } from 'antd';
+import { Button, message } from 'antd';
 import { loginAction } from '../../store/login-slice';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from '../../config/firebase.config';
+import cab2 from "../../Assets/cab2.jpg"
+import { useNavigate } from 'react-router-dom';
 
 
 declare global {
@@ -26,6 +28,7 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
 
     const isEmailVerify = useSelector((state: any) => state.login.isEmailVerify)
     const isPhoneVerify = useSelector((state: any) => state.login.isPhoneVerify)
+    const isDriver = useSelector((state: any) => state.login.isDriver)
 
     const [state, setstate] = React.useState(0)
     const [otp, setotp] = React.useState(0)
@@ -34,6 +37,7 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
     const [phone, setphone] = React.useState("")
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const Handle$Email = () => {
         dispatch(loginAction.addloader({ loader: true }))
@@ -192,15 +196,30 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
         }
     }
 
+    const Handle$OnClick$Button$Done = () => {
+        if (!isEmailVerify) {
+            message.error("Please verify your email")
+            return
+        } 
+        if (!isPhoneVerify) {
+            message.error("Please verify your phone number")
+            return
+        }
+        if(isDriver) {
+            message.success("You are successfully verified")
+            setpage(2)
+        }
+        else navigate("/login")
+    }
 
 
     return (
         <div className='flex'>
-            <div className='w-[50vw] overflow-hidden'>
-                <img src={cab} ></img>
+            <div className='w-[40vw] h-screen overflow-hidden'>
+                <img className='relative' src={cab2} ></img>
             </div>
             <div id='recaptcha-container'></div>
-            <div className='w-[50vw]'>
+            <div className='w-[60vw]'>
                 <div className={`h-screen flex flex-col gap-3 items-center justify-center`}>
                     <div className='text-4xl p-4 flex flex-col items-center gap-4'>
                         Verify with the Below Options
@@ -298,6 +317,7 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
                                 <button onClick={() => Handle$Email()} className='w-[10vw] p-2 rounded-lg text-black bg-white'>Re-Send OTP</button>
                             </div> </>}
                     </div>}
+                    <button onClick={() => Handle$OnClick$Button$Done()} className='text-3xl bg-black text-white px-8 py-2 rounded-xl' >{ isDriver ? "Next" : "Login"}</button>
                 </div>
             </div>
         </div>

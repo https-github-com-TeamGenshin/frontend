@@ -7,16 +7,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginAction } from '../../store/login-slice';
 import { MenuOutlined } from '@ant-design/icons';
 import { message } from 'antd';
+import logo from "../../Assets/logo.png"
 import { Navigator } from '../../Components/Navigator';
 import { CitiesAutoComplete } from '../../Components/Autocomplete/Cities';
+import { sessionActions } from '../../store/session-slice';
 
 
 const Home = () => {
 
-
-  const [trigger, setTrigger] = useState(0);
   const [city, setcity] = useState<string>("")
-  
+
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
@@ -24,12 +24,17 @@ const Home = () => {
 
 
   const Handle$Response$VerifyToken = (data: any) => {
+    console.log(data)
     dispatch(loginAction.addloader({ loader: false }))
     if (data.status === 500) {
       message.error(data.data)
       navigate("/")
     }
-    else dispatch(loginAction.addLogin({ _id: data.data.id, name: data.data.username, email_id: data.data.email_id, mobile_no: data.data.mobile_no, location: data.data.location }))
+    else {
+      dispatch(sessionActions.addSessionUserID({ user_id: data.data.id }))
+      dispatch(loginAction.addLogin({ _id: data.data.id, name: data.data.username, email_id: data.data.email_id, mobile_no: data.data.mobile_no, location: data.data.location }))
+    }
+
   }
 
 
@@ -60,43 +65,48 @@ const Home = () => {
     else return true
   }
 
+  const Handle$Onchange$VechileType = (ev: any) => {
+    dispatch(loginAction.addType({ type: ev.target.value }))
+    dispatch(sessionActions.addSessionType({ type: ev.target.value }))
+  }
 
   return (
-    <div className="bg-slate-800 h-screen w-screen">
-      <div className='flex p-6 gap-6 text-white'>
-        <MenuOutlined className='text-white text-xl' onClick={() => setTrigger(trigger + 1)} />
-        <p className='text-xl'>Plan Ahead</p>
+    <div>
+      <div className='absolute top-0 -z-10 blur-md'>
+        <img className='h-screen w-screen' src="https://c4.wallpaperflare.com/wallpaper/900/398/321/anime-demon-slayer-kimetsu-no-yaiba-zenitsu-agatsuma-hd-wallpaper-preview.jpg"></img>
       </div>
-      <div className='p-6 flex flex-col gap-6 items-center'>
-        <select onChange={(ev) => dispatch(loginAction.addType({ type: ev.target.value }))} className='p-1 rounded w-[60vw] outline-none' name="Vehicle">
-          <option value="">Vehicle Type</option>
-          <option value="two-wheeler">Two Wheeler</option>
-          <option value="three-wheeler">Three Wheeler</option>
-          <option value="four-wheeler">Four Wheeler</option>
-        </select>
-        <CitiesAutoComplete city={city} setcity={setcity} />
+      <div className="">
+        <Navigator/>
+        <div className=' p-6 flex gap-6 justify-around items-center'>
+          <select onChange={Handle$Onchange$VechileType} className='p-1 rounded w-[20vw] outline-none' name="Vehicle">
+            <option value="">Vehicle Type</option>
+            <option value="two-wheeler">Two Wheeler</option>
+            <option value="three-wheeler">Three Wheeler</option>
+            <option value="four-wheeler">Four Wheeler</option>
+          </select>
+          <CitiesAutoComplete city={city} setcity={setcity} />
+        </div>
+        <div className='flex justify-evenly'>
+          <section className='flex flex-col items-center justify-center gap-3 w-full'>
+            <div className='py-7 flex items-center'>
+              <img src="https://c4.wallpaperflare.com/wallpaper/900/398/321/anime-demon-slayer-kimetsu-no-yaiba-zenitsu-agatsuma-hd-wallpaper-preview.jpg" className='border w-96 rounded-3xl'></img>
+            </div>
+            <div onClick={() => {
+              if (Validate$TypeandCity()) navigate("/cabs")
+            }} className='bg-[#14224A] p-2 text-center font-bold rounded-xl w-[10vw] text-white'>Explore</div>
+          </section>
+          <section className='flex flex-col items-center justify-center gap-3 w-full'>
+            <div className=' py-7 flex items-center'>
+              <img src="https://c4.wallpaperflare.com/wallpaper/900/398/321/anime-demon-slayer-kimetsu-no-yaiba-zenitsu-agatsuma-hd-wallpaper-preview.jpg" className=' w-96 rounded-3xl'></img>
+            </div>
+            <div onClick={() => {
+              if (Validate$TypeandCity()) navigate("/drivers")
+            }} className='bg-[#14224A] p-2 text-center font-bold rounded-xl w-[10vw] text-white'>Explore</div>
+          </section>
+        </div>
       </div>
-      <div>
-        <section className='flex flex-col items-center justify-center gap-3 w-full'>
-          <div className='border-[0.5px] w-[90vw] py-7 flex justify-center items-center'>
-            <p className='text-white'>ADD CAB</p>
-          </div>
-          <div onClick={() => {
-            if (Validate$TypeandCity()) navigate("/cabs")
-          }} className='bg-white rounded-xl w-[30vw] text-[#8E271F]'>Explore</div>
-        </section>
-        <section className='flex flex-col items-center justify-center gap-3 w-full'>
-          <div className='border-[0.5px] w-[90vw] py-7 flex justify-center items-center'>
-            <p className='text-white'>ADD Driver</p>
-          </div>
-          <div onClick={() => {
-            if (Validate$TypeandCity()) navigate("/drivers")
-          }} className='bg-white rounded-xl w-[30vw] text-[#8E271F]'>Explore</div>
-        </section>
-      </div>
-      <Drawer trigger={trigger} />
-      <Navigator />
     </div>
+
   )
 }
 

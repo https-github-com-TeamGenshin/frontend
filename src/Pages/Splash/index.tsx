@@ -17,7 +17,7 @@ export const Splash = () => {
             </div>
             <div className='text-white flex flex-col gap-10 p-16 justify-center items-center'>
                 <div className='font-extralight text-3xl text-center'>Find Your <br />Destination</div>
-                <div onClick={() => navigate("/home")} className='flex items-center gap-4 px-12 py-1 rounded-full border-2 border-orange-600'>
+                <div onClick={() => navigate("/home")} className=' cursor-pointer flex items-center gap-4 px-12 py-1 rounded-full border-2 border-orange-600'>
                     <section className='text-orange-600 font-bold'>CONTINUE</section>
                     <RightOutlined className='text-orange-600' />
                 </div>

@@ -9,6 +9,8 @@ import { Loader } from './Components/Loader';
 import { Cabs } from './Pages/Program/Cabs';
 import { Driver } from './Pages/Program/Driver';
 import Maps from './Components/Maps';
+import { TimeAndKm } from './Pages/Program/TimesAndKm';
+import { Drawer } from './Components/Drawer';
 // import { New } from './Components/Maps/New';
 
 function App() {
@@ -27,7 +29,9 @@ function App() {
         <Route path="/cabs" element={<Cabs />} />
         <Route path="/drivers" element={<Driver />} />
         <Route path="/maps" element={<Maps />} />
+        <Route path="timeandkm" element={<TimeAndKm />} />
       </Routes>
+      <Drawer />
     </Router>
 
 

@@ -1,14 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
     Box,
-    Button,
-    ButtonGroup,
     Flex,
     HStack,
-    IconButton,
     Input,
     SkeletonText,
-    Text,
 } from '@chakra-ui/react';
 import {
     useJsApiLoader,
@@ -16,9 +13,9 @@ import {
     Marker,
     Autocomplete,
     DirectionsRenderer,
-    useLoadScript,
 } from '@react-google-maps/api';
-import { CloseOutlined, CaretRightFilled } from '@ant-design/icons';
+import { sessionActions } from '../../store/session-slice';
+import { Button } from 'antd';
 
 type LatLng = {
     lat: number;
@@ -36,36 +33,24 @@ export const Maps: React.FC = () => {
         libraries: ['places'],
     });
 
-    const [autoc, setautoc] = useState<any>(null)
     const [map, setMap] = useState<google.maps.Map | null>(null);
+    const [autoc, setautoc] = useState<any>(null)
     const [directionsResponse, setDirectionsResponse] = useState<DirectionsResult | null>(null);
-    const [center, setCenter] = useState<LatLng>({ lat: 0, lng: 0 });
-    const [distance, setDistance] = useState('');
-    const [duration, setDuration] = useState('');    
+    const [center, setCenter] = useState<LatLng>({ lat: 0, lng: 0 });  
+    
+    const dispatch = useDispatch();
     
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
+            dispatch(sessionActions.addSessionLocation( {location : { latitude : latitude, longitude: longitude }}))
             setCenter({ lat: latitude, lng: longitude });
         });
     }, []); 
 
     const originRef = useRef<HTMLInputElement | null>(null);
-    const destiantionRef = useRef<HTMLInputElement>(null);
 
     if (!isLoaded) {
         return <SkeletonText />;
-    }
-
-    function clearRoute() {
-        setDirectionsResponse(null);
-        setDistance('');
-        setDuration('');
-        if (originRef.current) {
-            originRef.current.value = '';
-        }
-        if (destiantionRef.current) {
-            destiantionRef.current.value = '';
-        }
     }
 
     const onChangeAddress = (autocomplete : any) => {
@@ -129,6 +114,9 @@ export const Maps: React.FC = () => {
                             <Input type="text" placeholder="Origin" ref={originRef} />
                         </Autocomplete>
                     </Box>
+                    <Button onClick={() => {
+                        dispatch(sessionActions.addSessionLocation( {location : { latitude : center.lat, longitude: center.lng }}))
+                    }}>Confirm</Button>
                 </HStack>
             </Box>
         </Flex>

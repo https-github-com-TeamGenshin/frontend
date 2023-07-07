@@ -36,7 +36,7 @@ export const CitiesAutoComplete = ({ city, setcity }: { city: string, setcity: a
             }
             {
                 <>
-                    <div onClick={() => { setc([...Cities.map((city) => city.name)]); setflim(true) }} className='w-[60vw] bg-white p-1 rounded'>{city !== "" ? city : "Select City"}</div>
+                    <div onClick={() => { setc([...Cities.map((city) => city.name)]); setflim(true) }} className='w-[20vw] bg-white p-1 rounded'>{city !== "" ? city : "Select City"}</div>
                 </>
             }
         </div>
