@@ -10,7 +10,7 @@ const loginSlice = createSlice({
     gender: "",
     age: "",
     location: "",
-    city : "",
+    city: "",
     vehicle_type: "",
     allDrivers: [],
     allCabs: [],
@@ -28,7 +28,7 @@ const loginSlice = createSlice({
       start_date: "",
       request_status: "",
     },
-    pendingRequest: false,
+    pendingRequest: "",
     isLogin: false,
     loader: false,
     isEmailVerify: false,
@@ -50,7 +50,7 @@ const loginSlice = createSlice({
         time_required: action.payload.time_required,
         start_date: action.payload.start_date,
         request_status: action.payload.request_status,
-      }
+      };
     },
     addCity(state, action) {
       state.city = action.payload.city;
@@ -71,7 +71,7 @@ const loginSlice = createSlice({
       state.RequestDetails.location_user = {
         latitude: action.payload.latitude,
         longitude: action.payload.longitude,
-      }
+      };
     },
     addKms(state, action) {
       state.RequestDetails.kms = action.payload.kms;
@@ -88,11 +88,9 @@ const loginSlice = createSlice({
     addIsDriver(state, action) {
       state.isDriver = action.payload.isDriver;
     },
-
-
-
-
-
+    addPendingRequest(state, action) {
+      state.pendingRequest = action.payload.pendingRequest;
+    },
     addAllCabs(state, action) {
       state.allCabs = action.payload.allCabs;
     },
@@ -110,10 +108,8 @@ const loginSlice = createSlice({
       state.age = action.payload.age;
       state.location = action.payload.location;
     },
-    addUserEmail(state, action) {
-    },
-    addUserMobileNo(state, action) {
-    },
+    addUserEmail(state, action) {},
+    addUserMobileNo(state, action) {},
     addLogin(state, action) {
       state._id = action.payload._id;
       state.mobile_no = action.payload.mobile_no;
@@ -160,7 +156,7 @@ const loginSlice = createSlice({
         time_required: "",
         start_date: "",
         request_status: "",
-      }
+      };
       state.isLogin = false;
     },
   },

@@ -1,12 +1,9 @@
 import axios from "axios";
-import {ResponseForFiltered,ResponseForSearched} from "./interfaces";
+import { ResponseForFiltered, ResponseForSearched } from "./interfaces";
 const headers = {
-  Authorization:
-    "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkcml2ZXIiOiI2NDkxNDY4MTBlY2IyZTFkMWY1MzJlZmYiLCJpYXQiOjE2ODcyNDIzOTl9.ExJi-FCQ_kZWZQASUD1TtXN3ZaQ3gn8a1QGG5ao5VOc",
+  Authorization: `bearer ${localStorage.getItem("token")}`,
   "Content-Type": "application/json",
 };
-
-
 
 export const put$getCabs = async (
   filters: object,
