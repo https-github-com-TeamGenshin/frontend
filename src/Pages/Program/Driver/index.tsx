@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState, useRef } from "react";
 import { put$getDrivers } from "../../../API/drivers";
 import { useDispatch, useSelector } from "react-redux";
@@ -5,6 +6,16 @@ import { sessionActions } from "../../../store/session-slice";
 import { useNavigate } from "react-router-dom";
 import { Navigator } from "../../../Components/Navigator";
 import { Pagination } from "antd";
+=======
+import React, { useEffect, useState, useRef } from 'react'
+import { put$getDrivers } from '../../../API/drivers'
+import { useDispatch, useSelector } from 'react-redux'
+import { sessionActions } from '../../../store/session-slice'
+import { useNavigate } from 'react-router-dom'
+import { Navigator } from '../../../Components/Navigator'
+import { Pagination } from 'antd';
+import Background from "../../../Assets/background1.png"
+>>>>>>> c66c2ce682cd6339872b29360172be2118b49682
 
 export const Driver = () => {
   const [drivers, setDrivers] = React.useState<any>([]);
@@ -68,6 +79,7 @@ export const Driver = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div
       style={{
         backgroundImage:
@@ -76,6 +88,9 @@ export const Driver = () => {
       }}
       className="text-white h-screen"
     >
+=======
+    <div style={{ backgroundImage: `url(${Background})`, backgroundPosition: "center" }} className='text-white h-screen'>
+>>>>>>> c66c2ce682cd6339872b29360172be2118b49682
       <Navigator />
       <div className="">
         <div className="flex w-full justify-evenly p-6 text-black">

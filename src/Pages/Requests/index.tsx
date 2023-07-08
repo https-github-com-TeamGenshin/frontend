@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect } from "react";
 import Pusher from "pusher-js";
 import { useSelector } from "react-redux";
@@ -37,3 +38,12 @@ export const Request = () => {
 
   return <div>index</div>;
 };
+=======
+import React from 'react'
+
+export const Requests = () => {
+  return (
+    <div>Requests</div>
+  )
+}
+>>>>>>> c66c2ce682cd6339872b29360172be2118b49682

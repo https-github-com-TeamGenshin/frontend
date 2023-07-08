@@ -11,6 +11,7 @@ import logo from "../../Assets/logo.png"
 import { Navigator } from '../../Components/Navigator';
 import { CitiesAutoComplete } from '../../Components/Autocomplete/Cities';
 import { sessionActions } from '../../store/session-slice';
+import Background from "../../Assets/background2.png"
 
 
 const Home = () => {
@@ -72,8 +73,8 @@ const Home = () => {
 
   return (
     <div>
-      <div className='absolute top-0 -z-10 blur-md'>
-        <img className='h-screen w-screen' src="https://c4.wallpaperflare.com/wallpaper/900/398/321/anime-demon-slayer-kimetsu-no-yaiba-zenitsu-agatsuma-hd-wallpaper-preview.jpg"></img>
+      <div className='absolute top-0 -z-10 blur-sm'>
+        <img className='h-screen w-screen overflow-hidden' src={ Background } ></img>
       </div>
       <div className="">
         <Navigator/>
