@@ -5,6 +5,7 @@ import { sessionActions } from '../../../store/session-slice'
 import { useNavigate } from 'react-router-dom'
 import { Navigator } from '../../../Components/Navigator'
 import { Pagination } from 'antd';
+import Background from "../../../Assets/background1.png"
 
 export const Driver = () => {
 
@@ -63,7 +64,7 @@ export const Driver = () => {
   }
 
   return (
-    <div style={{ backgroundImage: "url(https://images.unsplash.com/photo-1519681393784-d120267933ba?ixi)", backgroundPosition: "center" }} className='text-white h-screen'>
+    <div style={{ backgroundImage: `url(${Background})`, backgroundPosition: "center" }} className='text-white h-screen'>
       <Navigator />
       <div className='' >
         <div className='flex w-full justify-evenly p-6 text-black'>

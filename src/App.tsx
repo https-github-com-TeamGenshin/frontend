@@ -11,6 +11,8 @@ import { Driver } from './Pages/Program/Driver';
 import Maps from './Components/Maps';
 import { TimeAndKm } from './Pages/Program/TimesAndKm';
 import { Drawer } from './Components/Drawer';
+import { History } from './Pages/History';
+import { Requests } from './Pages/Requests';
 // import { New } from './Components/Maps/New';
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
         <Route path="/drivers" element={<Driver />} />
         <Route path="/maps" element={<Maps />} />
         <Route path="timeandkm" element={<TimeAndKm />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/requests" element={<Requests />} />
       </Routes>
       <Drawer />
     </Router>
