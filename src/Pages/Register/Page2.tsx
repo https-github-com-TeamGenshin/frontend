@@ -12,6 +12,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from '../../config/firebase.config';
 import cab2 from "../../Assets/cab2.jpg"
 import { useNavigate } from 'react-router-dom';
+import { registerActions } from '../../store/register-slice';
 
 
 declare global {
@@ -26,9 +27,7 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
 
     const [UserPopupVal, setUserPopup] = useState(0)
 
-    const isEmailVerify = useSelector((state: any) => state.login.isEmailVerify)
-    const isPhoneVerify = useSelector((state: any) => state.login.isPhoneVerify)
-    const isDriver = useSelector((state: any) => state.login.isDriver)
+    const { isDriver, isEmailVerify, isPhoneVerify } = useSelector((state: any) => state.register)
 
     const [state, setstate] = React.useState(0)
     const [otp, setotp] = React.useState(0)
@@ -130,7 +129,13 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
                 console.log(res.user.phoneNumber, "+91" + phone);
                 if (res.user.phoneNumber === "+91" + phone) {
                     message.success("Phone Number verified")
-                    dispatch(loginAction.addPhoneVerfiy({ isPhoneVerify: true }))
+
+                    dispatch(registerActions.addPhoneVerfiy({ isPhoneVerify: true }))
+                    if (isDriver)
+                        dispatch(registerActions.addDriverMobileNo({ mobile_no: phone }))
+                    else 
+                        dispatch(registerActions.addUserMobileNo({ mobile_no: phone }))
+                    // dispatch(loginAction.addPhoneVerfiy({ isPhoneVerify: true }))
                     setUserPopup(0)
                 }
                 // setPhoneNumber(res.user.phoneNumber);
@@ -155,8 +160,13 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
         const otpValue: number = parseInt(otp1.value + otp2.value + otp3.value + otp4.value + otp5.value + otp6.value)
         if (otpValue === otp) {
             message.success("Email verified")
-            dispatch(loginAction.addEmailVerfiy({ isEmailVerify: true }))
-            dispatch(loginAction.addUserEmail({ email_id: email }))
+            
+            dispatch(registerActions.addEmailVerfiy({ isEmailVerify: true }))
+            if (isDriver)
+                dispatch(registerActions.addDriverEmailID({ email_id: email }))
+            else
+                dispatch(registerActions.addUserEmailID({ email_id: email }))
+            
             setUserPopup(0)
         } else {
             message.error("Wrong OTP")
@@ -205,11 +215,13 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
             message.error("Please verify your phone number")
             return
         }
+        message.success("You are successfully verified")
         if(isDriver) {
-            message.success("You are successfully verified")
             setpage(2)
         }
-        else navigate("/login")
+        else {
+            
+        } 
     }
 
 

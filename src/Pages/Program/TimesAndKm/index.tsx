@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
 import { post$createRequest } from "../../../API/Request";
 import { loginAction } from "../../../store/login-slice";
+import { TimePicker } from 'antd';
+import dayjs from 'dayjs';
 
 export const TimeAndKm = () => {
   const { kms_rate, hourly_rate } = useSelector((state: any) => state.session);
@@ -16,17 +18,18 @@ export const TimeAndKm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const sessionSelector = useSelector((state: any) => state.session);
+  const loginSelector = useSelector((state: any) => state.login)
 
   const Handle$onClick$Confirm = async () => {
     dispatch(sessionActions.addSessionKms({ kms: Kilometer }));
     dispatch(sessionActions.addSessionTimeRequired({ time_required: Time }));
     dispatch(
       sessionActions.addSessionTotalAmount({
-        total_amount: kms_rate * Kilometer + hourly_rate * Time,
+        total_amount: hourly_rate * Kilometer + kms_rate * Time,
       })
     );
     console.log({
-      user_id: sessionSelector.user_id,
+      user_id: loginSelector._id,
       driver_id: sessionSelector.driver_id,
       type: sessionSelector.type,
       cab_id: sessionSelector.cab_id,
@@ -39,7 +42,7 @@ export const TimeAndKm = () => {
       model_name: sessionSelector.model_name,
     });
     const request: any = await post$createRequest({
-      user_id: sessionSelector.user_id,
+      user_id: loginSelector._id,
       driver_id: sessionSelector.driver_id,
       type: sessionSelector.type,
       cab_id: sessionSelector.cab_id,
@@ -51,8 +54,9 @@ export const TimeAndKm = () => {
       model_no: sessionSelector.model_no,
       model_name: sessionSelector.model_name,
     });
+    console.log(request);
     dispatch(
-      loginAction.addPendingRequest({ pendingRequest: request.data._id })
+      loginAction.addPendingRequest({ pendingRequest: request?.data._id })
     );
   };
 
@@ -75,13 +79,14 @@ export const TimeAndKm = () => {
           placeholder="Time"
         />
       </div>
-      <DatePicker
+      <DatePicker showTime
         onChange={(_, dateString: any) => {
           dispatch(
             sessionActions.addSessionStartDate({ start_date: dateString })
           );
         }}
       />
+      
       <div className="flex flex-col gap-10">
         <div>Hourly Rate: {hourly_rate * Kilometer}</div>
         <div>Kilometer Rate: {kms_rate * Time}</div>

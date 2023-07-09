@@ -31,8 +31,6 @@ const loginSlice = createSlice({
     pendingRequest: "",
     isLogin: false,
     loader: false,
-    isEmailVerify: false,
-    isPhoneVerify: false,
     isDriver: false,
   },
   reducers: {
@@ -127,12 +125,7 @@ const loginSlice = createSlice({
     addloader(state, action) {
       state.loader = action.payload.loader;
     },
-    addEmailVerfiy(state, action) {
-      state.isEmailVerify = action.payload.isEmailVerify;
-    },
-    addPhoneVerfiy(state, action) {
-      state.isPhoneVerify = action.payload.isPhoneVerify;
-    },
+    
     logout(state) {
       state._id = "";
       state.name = "";

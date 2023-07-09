@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useEffect } from "react";
 import Pusher from "pusher-js";
 import { useSelector } from "react-redux";
@@ -9,9 +8,10 @@ export const Request = () => {
   const loginSelector = useSelector((state: any) => state.login);
   useEffect(() => {
     let pendingRequest: string = loginSelector.pendingRequest;
-
+    
     if (pendingRequest === "") {
       get$verifyUserToken().then((response: any) => {
+        console.log(response);
         const data: any = response?.data;
         pendingRequest = data?.pending_request;
 
@@ -31,6 +31,20 @@ export const Request = () => {
           });
         }
       });
+    }else{
+       post$getRequest({ request_id: pendingRequest }).then((response) => {
+            console.log(response);
+
+            Pusher.logToConsole = true;
+            const pusher = new Pusher("2d17248b4e85ba67a14c", {
+              cluster: "ap2",
+            });
+
+            const channel = pusher.subscribe("Requests");
+            channel.bind(pendingRequest, function (data: any) {
+              console.log(data);
+            });
+          });
     }
 
     console.log(loginSelector.pendingRequest);
@@ -38,12 +52,3 @@ export const Request = () => {
 
   return <div>index</div>;
 };
-=======
-import React from 'react'
-
-export const Requests = () => {
-  return (
-    <div>Requests</div>
-  )
-}
->>>>>>> c66c2ce682cd6339872b29360172be2118b49682

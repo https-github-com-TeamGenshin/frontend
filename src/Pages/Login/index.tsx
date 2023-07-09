@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import { useDispatch, useSelector } from "react-redux"
 import logo from "../../Assets/logo.png"
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 export const Login = () => {
 
@@ -13,6 +13,7 @@ export const Login = () => {
 
   const usernameRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const [showpassword, setshowpassword] = React.useState<boolean>(false)
 
   const HandleLoginButton = () => {
     const data = {
@@ -38,13 +39,15 @@ export const Login = () => {
         <p className='text-2xl font-semibold text-center'>Welcome!</p>
       </div>
       <div className='flex flex-col w-screen items-center gap-5'>
-        <div className='border-2 flex gap-4 border-black px-8 py-1 rounded-xl'>
+        <div className='border-2 w-1/3 flex gap-4 border-black px-8 py-1 rounded-xl'>
           <UserOutlined className='text-2xl' />
           <input ref={usernameRef} className=' outline-none p-2 w-[20vw]' placeholder='Email Address' />
         </div>
-        <div className='border-2 flex gap-4 border-black px-8 py-1 rounded-xl'>
+        <div className='border-2 w-1/3 flex items-center gap-4 border-black px-8 py-1 rounded-xl'>
           <LockOutlined className='text-2xl' />
-          <input ref={passwordRef} className=' outline-none p-2 w-[20vw]' placeholder='Password' />
+          <input type={showpassword ? "text" : "password"} ref={passwordRef} className=' outline-none p-2 w-[30vw]' placeholder='Password' />
+          {showpassword && <EyeOutlined onClick={() => setshowpassword(false)} />}
+          {!showpassword && <EyeInvisibleOutlined onClick={() => setshowpassword(true)} />}
         </div>
         <button style={{ boxShadow: "3px 20px 27px -16px rgba(0,0,0,0.75)" }} className='bg-black text-white w-[30vw] text-xl p-3 rounded-xl' onClick={() => HandleLoginButton()}>LOGIN</button>
         <button className='text-[#ff942b]'>Forgot Password</button>
@@ -52,7 +55,6 @@ export const Login = () => {
           <button onClick={() => navigate("/register")}>Register now!</button>
         </div>
       </div>
-
     </div>
   )
 }
