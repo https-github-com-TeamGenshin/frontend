@@ -3,6 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 const loginSlice = createSlice({
   name: "login",
   initialState: {
+    imageurl: "",
+    experience_years: 0,
+    vehicle_preferred: [],
+    rate_per_km: 0,
+    rate_per_hrs: 0,
+    acceptedRequests: [],
+    pendingRequests: [],
     _id: "",
     name: "",
     email_id: "",
@@ -10,10 +17,6 @@ const loginSlice = createSlice({
     gender: "",
     age: "",
     location: "",
-    city: "",
-    vehicle_type: "",
-    allDrivers: [],
-    allCabs: [],
     RequestDetails: {
       driver_id: "",
       cab_id: "",
@@ -28,29 +31,34 @@ const loginSlice = createSlice({
       start_date: "",
       request_status: "",
     },
+    city: "",
+    vehicle_type: "",
+    allDrivers: [],
+    allCabs: [],
     pendingRequest: "",
     isLogin: false,
     loader: false,
     isEmailVerify: false,
     isPhoneVerify: false,
     isDriver: false,
+    role: "",
   },
   reducers: {
-    addRequestDetails(state, action) {
-      state.RequestDetails = {
-        driver_id: action.payload.driver_id,
-        cab_id: action.payload.cab_id,
-        type: action.payload.type,
-        model_no: action.payload.model_no,
-        location_user: {
-          latitude: action.payload.latitude,
-          longitude: action.payload.longitude,
-        },
-        kms: action.payload.kms,
-        time_required: action.payload.time_required,
-        start_date: action.payload.start_date,
-        request_status: action.payload.request_status,
-      };
+    addDriverLogin(state, action) {
+      state._id = action.payload._id;
+      state.name = action.payload.name;
+      state.email_id = action.payload.email_id;
+      state.mobile_no = action.payload.mobile_no;
+      state.rating = action.payload.rating;
+      state.experience_years = action.payload.experience_years;
+      state.location = action.payload.location;
+      state.rate_per_km = action.payload.rate_per_km;
+      state.rate_per_hrs = action.payload.rate_per_hrs;
+      state.role = action.payload.role;
+      state.isLogin = true;
+    },
+    addRole: (state, action) => {
+      state.role = action.payload.role;
     },
     addCity(state, action) {
       state.city = action.payload.city;
@@ -116,6 +124,7 @@ const loginSlice = createSlice({
       state.email_id = action.payload.email_id;
       state.name = action.payload.name;
       state.location = action.payload.location;
+      state.role = action.payload.role;
       state.isLogin = true;
     },
     addVehileType(state, action) {
@@ -157,6 +166,9 @@ const loginSlice = createSlice({
         start_date: "",
         request_status: "",
       };
+      state.city = "";
+      state.vehicle_type = "";
+      state.role = "";
       state.isLogin = false;
     },
   },

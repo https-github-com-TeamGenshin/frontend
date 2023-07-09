@@ -1,9 +1,28 @@
 import axios from "axios";
 import { ResponseForFiltered, ResponseForSearched } from "./interfaces";
+import { loginUserType } from "./Login";
 
 const headers = {
   Authorization: `bearer ${localStorage.getItem("token")}`,
   "Content-Type": "application/json",
+};
+
+export const post$loginDriver = async (
+  body: loginUserType["Res"]
+): Promise<loginUserType["Req"]> => {
+  try {
+    const response = await axios.post(`api/driver/loginDriver`, body);
+    localStorage.setItem("token", response.data.token);
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (error: any) {
+    return {
+      status: error.response?.status || 400,
+      data: error.response || "Internal Server Error",
+    };
+  }
 };
 
 export const put$getDrivers = async (

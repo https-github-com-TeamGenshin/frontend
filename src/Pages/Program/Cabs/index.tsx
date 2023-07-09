@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useRef, useState } from "react";
 import { put$getCabs } from "../../../API/cabs";
 import { Select, message } from "antd";
@@ -7,17 +6,7 @@ import { sessionActions } from "../../../store/session-slice";
 import { useNavigate } from "react-router-dom";
 import { Navigator } from "../../../Components/Navigator";
 import { Pagination } from "antd";
-=======
-import React, { useEffect, useRef, useState } from 'react'
-import { put$getCabs } from '../../../API/cabs'
-import { Select, message } from 'antd'
-import { useSelector, useDispatch } from 'react-redux'
-import { sessionActions } from '../../../store/session-slice'
-import { useNavigate } from 'react-router-dom'
-import { Navigator } from '../../../Components/Navigator'
-import { Pagination } from 'antd';
-import Background from "../../../Assets/background1.png"
->>>>>>> c66c2ce682cd6339872b29360172be2118b49682
+import Background from "../../../Assets/background1.png";
 
 export const Cabs = () => {
   const [cabs, setcabs] = useState<any>([]);
@@ -28,7 +17,7 @@ export const Cabs = () => {
   const [hrs_rate, sethrs_rate] = useState<boolean>(true);
   const [chunk, setchunk] = useState<number>(1);
 
-  const { location, RequestDetails } = useSelector((state: any) => state.login);
+  const { city, RequestDetails } = useSelector((state: any) => state.login);
   const {
     driver_id,
     hourly_rate,
@@ -43,7 +32,7 @@ export const Cabs = () => {
   useEffect(() => {
     setcabs([]);
     const DataToSend = {
-      location: location,
+      location: city,
       type: RequestDetails.type,
       colour: colour,
       fuel_type: fuel_type,
@@ -89,18 +78,13 @@ export const Cabs = () => {
   };
 
   return (
-<<<<<<< HEAD
     <div
       style={{
-        backgroundImage:
-          "url(https://images.unsplash.com/photo-1519681393784-d120267933ba?ixi)",
+        backgroundImage: `url(${Background})`,
         backgroundPosition: "center",
       }}
       className="text-white h-screen"
     >
-=======
-    <div style={{ backgroundImage: `url(${Background})`, backgroundPosition : "center" }} className='text-white h-screen'>
->>>>>>> c66c2ce682cd6339872b29360172be2118b49682
       <Navigator />
       <div className="flex w-full justify-evenly p-6 text-black">
         <select

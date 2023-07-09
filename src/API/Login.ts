@@ -1,6 +1,6 @@
 import axios from "axios";
 
-interface loginUserType {
+export interface loginUserType {
   Res: { username: string | undefined; password: string | undefined };
   Req: { status: number; data: Object };
 }
@@ -19,8 +19,8 @@ export const post$loginUser = async (
   } catch (err: any) {
     // console.log(err)
     return {
-      status: err.response.status,
-      data: err.response.data.message,
+      status: err.response.status || 400,
+      data: err.response.data.message || "Internal Server Error",
     };
   }
 };

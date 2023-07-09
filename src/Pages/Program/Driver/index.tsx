@@ -1,21 +1,11 @@
-<<<<<<< HEAD
 import React, { useEffect, useState, useRef } from "react";
 import { put$getDrivers } from "../../../API/drivers";
 import { useDispatch, useSelector } from "react-redux";
 import { sessionActions } from "../../../store/session-slice";
 import { useNavigate } from "react-router-dom";
 import { Navigator } from "../../../Components/Navigator";
-import { Pagination } from "antd";
-=======
-import React, { useEffect, useState, useRef } from 'react'
-import { put$getDrivers } from '../../../API/drivers'
-import { useDispatch, useSelector } from 'react-redux'
-import { sessionActions } from '../../../store/session-slice'
-import { useNavigate } from 'react-router-dom'
-import { Navigator } from '../../../Components/Navigator'
-import { Pagination } from 'antd';
-import Background from "../../../Assets/background1.png"
->>>>>>> c66c2ce682cd6339872b29360172be2118b49682
+import { Pagination, message } from "antd";
+import Background from "../../../Assets/background1.png";
 
 export const Driver = () => {
   const [drivers, setDrivers] = React.useState<any>([]);
@@ -36,16 +26,17 @@ export const Driver = () => {
     hourly_rate,
     kms_rate: kmr,
   } = useSelector((state: any) => state.session);
-  const { location, RequestDetails } = useSelector((state: any) => state.login);
+  const { city, RequestDetails } = useSelector((state: any) => state.login);
 
   useEffect(() => {
     setDrivers([]);
+    console.log(city);
     put$getDrivers(
       {
         rating: rating || 1,
         experience_years: experience_years || 1,
         type: RequestDetails.type,
-        location: location,
+        location: city,
         rate_per_hrs: hrs_rate,
         rate_per_km: kms_rate,
       },
@@ -53,6 +44,8 @@ export const Driver = () => {
     )
       .then((res) => {
         console.log(res);
+        !res.data && message.error("No Drivers to show");
+
         setDrivers(res.data);
         totalChunk.current = res.totalChunks;
       })
@@ -79,18 +72,13 @@ export const Driver = () => {
   };
 
   return (
-<<<<<<< HEAD
     <div
       style={{
-        backgroundImage:
-          "url(https://images.unsplash.com/photo-1519681393784-d120267933ba?ixi)",
+        backgroundImage: `url(${Background})`,
         backgroundPosition: "center",
       }}
       className="text-white h-screen"
     >
-=======
-    <div style={{ backgroundImage: `url(${Background})`, backgroundPosition: "center" }} className='text-white h-screen'>
->>>>>>> c66c2ce682cd6339872b29360172be2118b49682
       <Navigator />
       <div className="">
         <div className="flex w-full justify-evenly p-6 text-black">
@@ -137,7 +125,7 @@ export const Driver = () => {
       </div>
       <div className="flex gap-10 flex-wrap justify-center">
         {totalChunk.current !== 0 &&
-          drivers.map((driver: any) => {
+          drivers?.map((driver: any) => {
             return (
               <div
                 style={{
