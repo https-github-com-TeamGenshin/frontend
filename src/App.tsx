@@ -12,6 +12,7 @@ import Maps from './Components/Maps';
 import { TimeAndKm } from './Pages/Program/TimesAndKm';
 import { Drawer } from './Components/Drawer';
 import { History } from './Pages/History';
+import { Unauthorized } from "./Pages/Unauthorized";
 // import Requests
 // import { New } from './Components/Maps/New';
 import { Request } from "./Pages/Requests";
@@ -33,6 +34,7 @@ function App() {
         <Route path="timeandkm" element={<TimeAndKm />} />
         <Route path="requests" element={<Request />} />
         <Route path="/history" element={<History />} />
+        <Route path= "*" element={<Unauthorized />} />
         {/* <Route path="/requests" element={<Requests />} /> */}
       </Routes>
       <Drawer />

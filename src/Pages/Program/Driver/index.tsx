@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { Navigator } from '../../../Components/Navigator'
 import { Pagination } from 'antd';
 import Background from "../../../Assets/background1.png"
+import { Rate } from 'antd';
 
 export const Driver = () => {
   const [drivers, setDrivers] = React.useState<any>([]);
@@ -15,6 +16,7 @@ export const Driver = () => {
   const [rating, setrating] = useState<number>(1);
   const [experience_years, setexperience_years] = useState<number>(1);
   const [chunk, setchunk] = useState<number>(1);
+  const [cid, setcid] = useState<number>(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -114,11 +116,11 @@ export const Driver = () => {
           </div>
         </div>
       </div>
-      <div className="flex gap-10 flex-wrap justify-center">
+      <div className=" overflow-auto h-[70vh] flex gap-10 flex-wrap justify-center">
         {totalChunk.current !== 0 &&
-          drivers.map((driver: any) => {
+          drivers.map((driver: any, id:any) => {
             return (
-              <div
+              <div onMouseEnter={() => setcid(id)} onMouseLeave={() => setcid(-1)}
                 style={{
                   backgroundColor: "rgba(17, 25, 40, 0.20)",
                   backdropFilter: "blur(16px) saturate(200%)",
@@ -127,9 +129,16 @@ export const Driver = () => {
                 onClick={() => Handle$OnClick$DriverComponent(driver)}
               >
                 <img className="w-56 h-48" src={driver.imageurl}></img>
-                <div className="flex w-full justify-between">
+                <div className="p-3 flex flex-col w-full justify-between">
                   <div>{driver.username}</div>
-                  <div>{driver.location}</div>
+                  <Rate className='text-sm' allowHalf defaultValue={driver.rating} />
+                </div>
+                <div className={` rounded-xl opacity-80 flex flex-col justify-center items-center gap-5 w-full h-full text-white absolute top-0 left-0 ${cid === id ? "" : "hidden"} bg-slate-700 `}>
+                  <p>Experience Year : {driver.experience_years}</p>
+                  <p>Hourly Rate : {driver.rate_per_hrs}</p>
+                  <p>Kilometer Rate : {driver.rate_per_km}</p>
+                  <p>Age : {driver.age}</p>
+                  <p></p>
                 </div>
                 {/* <div>{driver.rating}</div> */}
                 {/* <div>{driver.experience_years}</div> */}

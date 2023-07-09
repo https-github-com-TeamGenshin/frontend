@@ -122,7 +122,7 @@ export const Cabs = () => {
             : "Kilometer Per Hour : Low to High"}
         </div>
       </div>
-      <div className="flex gap-10 flex-wrap justify-center">
+      <div className="overflow-auto h-[70vh] flex gap-10 flex-wrap justify-center">
         {totalChunk.current !== 0 &&
           cabs.map((cab: any, id : number) => {
             return (
@@ -142,9 +142,11 @@ export const Cabs = () => {
                     <p className="text-sm">{cab.fuel_type}</p>
                     <p style={{ backgroundColor: cab.colour }} className='absolute top-5 right-5 w-5 h-5 rounded-full'></p>
                   </div>
-                  <div className={` text-white absolute top-0 left-0 ${cid === id ? "" : "hidden"} bg-red-700 `}>
+                  <div className={` rounded-xl opacity-80 flex flex-col justify-center items-center gap-5 w-full h-full text-white absolute top-0 left-0 ${cid === id ? "" : "hidden"} bg-slate-700 `}>
                     <p>Number of Available : {cab.no_of_seats}</p>
-                    <p></p>
+                    <p>Hourly Rate : {cab.hrs_rate}</p>
+                    <p>Kilometer Rate : {cab.kms_rate}</p>
+                    <p>Number of Available : { cab.no_of_available }</p>
                     <p></p>
                   </div>
                   {/* <p className='text-xl'>{cab.location}</p> */}

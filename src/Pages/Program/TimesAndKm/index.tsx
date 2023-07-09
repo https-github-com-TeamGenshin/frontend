@@ -14,6 +14,7 @@ export const TimeAndKm = () => {
 
   const [Kilometer, setkilometer] = useState<number>(0);
   const [Time, settime] = useState<number>(0);
+  const [byKmorTime, setbyKmorTime] = useState<boolean>(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export const TimeAndKm = () => {
     dispatch(sessionActions.addSessionTimeRequired({ time_required: Time }));
     dispatch(
       sessionActions.addSessionTotalAmount({
-        total_amount: hourly_rate * Kilometer + kms_rate * Time,
+        total_amount: !byKmorTime ? hourly_rate * Kilometer : kms_rate * Time
       })
     );
     console.log({
@@ -87,10 +88,16 @@ export const TimeAndKm = () => {
         }}
       />
       
-      <div className="flex flex-col gap-10">
-        <div>Hourly Rate: {hourly_rate * Kilometer}</div>
-        <div>Kilometer Rate: {kms_rate * Time}</div>
-        <div>Total : {hourly_rate * Kilometer + kms_rate * Time}</div>
+      <div className="flex flex-col gap-5">
+        <div className="flex gap-10">
+          <div>Hourly Rate: {hourly_rate * Kilometer}</div>
+          <div>Kilometer Rate: {kms_rate * Time}</div>
+        </div>
+        <select onChange={(e) => setbyKmorTime(e.target.value === "Km" ? true : false)}>
+          <option value="Km">By Kilometer</option>
+          <option value="Time">By Time</option>
+        </select>
+        <div>Payable Amount : { !byKmorTime ? hourly_rate * Kilometer : kms_rate * Time}</div>
         <Button onClick={() => Handle$onClick$Confirm()}>Confirm</Button>
       </div>
     </div>
