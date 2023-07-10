@@ -6,11 +6,11 @@
 
 @keyframes drawer-width-key {
   from {
-    width: 25vw;
+    width: 0vw;
   }
 
   to {
-    width: 50vw;
+    width: 25vw;
   }
 }
 

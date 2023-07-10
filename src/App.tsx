@@ -12,6 +12,8 @@ import Maps from "./Components/Maps";
 import { TimeAndKm } from "./Pages/Program/TimesAndKm";
 import { Drawer } from "./Components/Drawer";
 import { History } from "./Pages/History";
+import { Unauthorized } from "./Pages/Unauthorized";
+// import Requests
 // import { New } from './Components/Maps/New';
 import { Request } from "./Pages/Requests";
 import Role from "./Validator/UserRole";
@@ -89,7 +91,7 @@ function App() {
             </Role>
           }
         />
-        <Route path="/unauthorized" element={<>No Page Found</>} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
       <Drawer />
     </Router>

@@ -36,7 +36,7 @@ export const EmailVerification = ({ setUserPopup }: { setUserPopup: any }) => {
         const otpValue: number = parseInt(otp1.value + otp2.value + otp3.value + otp4.value)
         if (otpValue === otp) {
             message.success("Email verified")
-            dispatch(loginAction.addEmailVerfiy({ isEmailVerify: true }))
+            // dispatch(loginAction.addEmailVerfiy({ isEmailVerify: true }))
             dispatch(loginAction.addUserEmail({ email_id: email }))
             setUserPopup(false)
         } else {
