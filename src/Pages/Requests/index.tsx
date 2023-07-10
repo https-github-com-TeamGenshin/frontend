@@ -51,12 +51,16 @@ export const Request = () => {
     console.log(loginSelector.pendingRequest);
   }, []);
 
-  return <div className="bg-slate-300 w-screen h-screen">
-    <Navigator />
-    <div className="w-full flex justify-center">
-      <div className="bg-white w-[80vw] p-5">
-        <div className="bg-slate-600 w-16 h-16 rounded-full"></div>
+  // make countdown timer
+  // Display the request details
+  return (
+    <div className="bg-slate-300 w-screen h-screen">
+      <Navigator />
+      <div className="w-full flex justify-center">
+        <div className="bg-white w-[80vw] p-5">
+          <div className="bg-slate-600 w-16 h-16 rounded-full"></div>
+        </div>
       </div>
     </div>
-  </div>;
+  );
 };

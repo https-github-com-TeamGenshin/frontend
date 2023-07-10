@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
 import { post$createRequest } from "../../../API/Request";
 import { loginAction } from "../../../store/login-slice";
-import { TimePicker } from 'antd';
-import dayjs from 'dayjs';
+import { TimePicker } from "antd";
+import dayjs from "dayjs";
 
 export const TimeAndKm = () => {
   const { kms_rate, hourly_rate } = useSelector((state: any) => state.session);
@@ -19,14 +19,14 @@ export const TimeAndKm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const sessionSelector = useSelector((state: any) => state.session);
-  const loginSelector = useSelector((state: any) => state.login)
+  const loginSelector = useSelector((state: any) => state.login);
 
   const Handle$onClick$Confirm = async () => {
     dispatch(sessionActions.addSessionKms({ kms: Kilometer }));
     dispatch(sessionActions.addSessionTimeRequired({ time_required: Time }));
     dispatch(
       sessionActions.addSessionTotalAmount({
-        total_amount: !byKmorTime ? hourly_rate * Kilometer : kms_rate * Time
+        total_amount: !byKmorTime ? hourly_rate * Kilometer : kms_rate * Time,
       })
     );
     console.log({
@@ -42,7 +42,7 @@ export const TimeAndKm = () => {
       model_registration_no: sessionSelector.model_no,
       model_name: sessionSelector.model_name,
     });
-    const request: any = await post$createRequest({
+    await post$createRequest({
       user_id: loginSelector._id,
       driver_id: sessionSelector.driver_id,
       type: sessionSelector.type,
@@ -54,11 +54,13 @@ export const TimeAndKm = () => {
       total_amount: sessionSelector.total_amount,
       model_no: sessionSelector.model_no,
       model_name: sessionSelector.model_name,
+    }).then((request) => {
+      console.log(request);
+      dispatch(
+        loginAction.addPendingRequest({ pendingRequest: request?.data._id })
+      );
+      navigate("/requests");
     });
-    console.log(request);
-    dispatch(
-      loginAction.addPendingRequest({ pendingRequest: request?.data._id })
-    );
   };
 
   const onChange = (date: any, dateString: any) => {
@@ -80,24 +82,32 @@ export const TimeAndKm = () => {
           placeholder="Time"
         />
       </div>
-      <DatePicker showTime
+      <DatePicker
+        showTime
         onChange={(_, dateString: any) => {
           dispatch(
             sessionActions.addSessionStartDate({ start_date: dateString })
           );
         }}
       />
-      
+
       <div className="flex flex-col gap-5">
         <div className="flex gap-10">
           <div>Hourly Rate: {hourly_rate * Kilometer}</div>
           <div>Kilometer Rate: {kms_rate * Time}</div>
         </div>
-        <select onChange={(e) => setbyKmorTime(e.target.value === "Km" ? true : false)}>
+        <select
+          onChange={(e) =>
+            setbyKmorTime(e.target.value === "Km" ? true : false)
+          }
+        >
           <option value="Km">By Kilometer</option>
           <option value="Time">By Time</option>
         </select>
-        <div>Payable Amount : { !byKmorTime ? hourly_rate * Kilometer : kms_rate * Time}</div>
+        <div>
+          Payable Amount :{" "}
+          {!byKmorTime ? hourly_rate * Kilometer : kms_rate * Time}
+        </div>
         <Button onClick={() => Handle$onClick$Confirm()}>Confirm</Button>
       </div>
     </div>

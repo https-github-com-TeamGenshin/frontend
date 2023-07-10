@@ -127,7 +127,7 @@ export const Driver = () => {
       </div>
       <div className=" overflow-auto h-[70vh] flex gap-10 flex-wrap justify-center">
         {totalChunk.current !== 0 &&
-          drivers.map((driver: any, id: any) => {
+          drivers?.map((driver: any, id: any) => {
             return (
               <div
                 onMouseEnter={() => setcid(id)}

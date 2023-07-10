@@ -59,7 +59,7 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
     }
   }, []);
 
-  if (!role) {
+  if (role !== access && role !== "") {
     console.log("Hum first hum first");
     console.log(role);
     return <Navigate to="/unauthorized" />;
