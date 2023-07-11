@@ -17,12 +17,12 @@ export const ForgetPassword = () => {
     
     if(email) {
         const OTP = Math.floor(Math.random() * 9000 + 1000);
-        console.log(OTP);
+        // console.log(OTP);
         const data = {
             email_id: email,
             otp: OTP,
         }
-        console.log(data)
+        // console.log(data)
         // const otpSend = await axios.post("",{
         //     data
         // })

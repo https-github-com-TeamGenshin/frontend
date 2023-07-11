@@ -21,27 +21,43 @@ export const TimeAndKm = () => {
   const sessionSelector = useSelector((state: any) => state.session);
   const loginSelector = useSelector((state: any) => state.login);
 
+  function sendWhatsAppMessage(phoneNumber: string, message: string) {
+    // Format the phone number by removing all non-numeric characters
+    var formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+    // Create the WhatsApp URL
+    var url = 'https://wa.me/' + formattedPhoneNumber + '?text=' + encodeURIComponent(message);
+
+    // Open the WhatsApp URL in a new window or tab
+    window.open(url);
+  }
+  
+
   const Handle$onClick$Confirm = async () => {
-    dispatch(sessionActions.addSessionKms({ kms: Kilometer }));
-    dispatch(sessionActions.addSessionTimeRequired({ time_required: Time }));
+    if (byKmorTime) {
+      dispatch(sessionActions.addSessionKms({ kms: Kilometer }));
+    }
+    else dispatch(sessionActions.addSessionTimeRequired({ time_required: Time }));
+
     dispatch(
       sessionActions.addSessionTotalAmount({
-        total_amount: !byKmorTime ? hourly_rate * Kilometer : kms_rate * Time,
+        total_amount: byKmorTime ? hourly_rate * Kilometer : kms_rate * Time,
       })
     );
-    console.log({
-      user_id: loginSelector._id,
-      driver_id: sessionSelector.driver_id,
-      type: sessionSelector.type,
-      cab_id: sessionSelector.cab_id,
-      start_date: sessionSelector.start_date,
-      location: sessionSelector.location,
-      kms: sessionSelector.kms,
-      time_required: sessionSelector.time_required,
-      total_amount: sessionSelector.total_amount,
-      model_registration_no: sessionSelector.model_no,
-      model_name: sessionSelector.model_name,
-    });
+    // console.log(Kilometer, Time, sessionSelector.total_amount)
+    // console.log({
+    //   user_id: loginSelector._id,
+    //   driver_id: sessionSelector.driver_id,
+    //   type: sessionSelector.type,
+    //   cab_id: sessionSelector.cab_id,
+    //   start_date: sessionSelector.start_date,
+    //   location: sessionSelector.location,
+    //   kms: sessionSelector.kms,
+    //   time_required: sessionSelector.time_required,
+    //   total_amount: sessionSelector.total_amount,
+    //   model_registration_no: sessionSelector.model_no,
+    //   model_name: sessionSelector.model_name,
+    // });
     await post$createRequest({
       user_id: loginSelector._id,
       driver_id: sessionSelector.driver_id,
@@ -49,22 +65,26 @@ export const TimeAndKm = () => {
       cab_id: sessionSelector.cab_id,
       start_date: sessionSelector.start_date,
       location: sessionSelector.location,
-      kms: sessionSelector.kms,
-      time_required: sessionSelector.time_required,
-      total_amount: sessionSelector.total_amount,
+      kms: Kilometer,
+      time_required: Time,
+      total_amount: byKmorTime ? hourly_rate * Kilometer : kms_rate * Time,
       model_no: sessionSelector.model_no,
       model_name: sessionSelector.model_name,
     }).then((request) => {
-      console.log(request);
+      // console.log(request);
       dispatch(
         loginAction.addPendingRequest({ pendingRequest: request?.data._id })
       );
       navigate("/requests");
+      var phoneNumber = sessionSelector.driver_no; // Replace with the recipient's phone number
+      var message = 'Hello, this is a test message!';
+      sendWhatsAppMessage(phoneNumber, message);
+
     });
   };
 
   const onChange = (date: any, dateString: any) => {
-    console.log(date, dateString);
+    // console.log(date, dateString);
   };
 
   return (
@@ -93,8 +113,8 @@ export const TimeAndKm = () => {
 
       <div className="flex flex-col gap-5">
         <div className="flex gap-10">
-          <div>Hourly Rate: {hourly_rate * Kilometer}</div>
-          <div>Kilometer Rate: {kms_rate * Time}</div>
+          <div>Kilometer Rate: {hourly_rate * Kilometer}</div>
+          <div>Hourly Rate: {kms_rate * Time}</div>
         </div>
         <select
           onChange={(e) =>
@@ -106,7 +126,7 @@ export const TimeAndKm = () => {
         </select>
         <div>
           Payable Amount :{" "}
-          {!byKmorTime ? hourly_rate * Kilometer : kms_rate * Time}
+          {byKmorTime ? hourly_rate * Kilometer : kms_rate * Time}
         </div>
         <Button onClick={() => Handle$onClick$Confirm()}>Confirm</Button>
       </div>

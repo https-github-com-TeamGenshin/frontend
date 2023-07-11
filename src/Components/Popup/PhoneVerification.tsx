@@ -40,7 +40,7 @@ export const PhoneVerification = (): JSX.Element => {
         setShowOTP(true);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setLoading(false);
       });
   }
@@ -50,12 +50,12 @@ export const PhoneVerification = (): JSX.Element => {
     (window as any).confirmationResult
       .confirm(otp)
       .then(async (res: any) => {
-        console.log(res);
+        // console.log(res);
         setPhoneNumber(res.user.phoneNumber);
         setLoading(false);
       })
       .catch((err: any) => {
-        console.log(err);
+        // console.log(err);
         setLoading(false);
       });
   }

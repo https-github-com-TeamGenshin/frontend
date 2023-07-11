@@ -23,7 +23,7 @@ export const New = () => {
 
     const initMapScript = async () => {
         if (window.google) {
-            console.log('google maps already loaded');
+            // console.log('google maps already loaded');
             return Promise.resolve();
         }
         return await loadAsyncScript(GoogleAPIUrl);
@@ -31,7 +31,7 @@ export const New = () => {
 
     const onChangeAddress = (autocomplete) => {
         const place = autocomplete.getPlace();
-        console.log(place.geometry.location.lat(), place.geometry.location.lng())
+        // console.log(place.geometry.location.lat(), place.geometry.location.lng())
     }
 
     const initAutocomplete = () => {

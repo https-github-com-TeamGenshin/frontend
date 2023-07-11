@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Drawer } from "../../Components/Drawer";
-import { get$verifyUserToken } from "../../API/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../store/login-slice";
 import { MenuOutlined } from "@ant-design/icons";
@@ -21,13 +20,16 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { RequestDetails, _id } = useSelector((state: any) => state.login);
+  const { RequestDetails, _id, location } = useSelector((state: any) => state.login);
 
   useEffect(() => {
     dispatch(loginAction.addCity({ city: city }));
   }, [city]);
 
   useEffect(() => {
+    if (location !== "") {
+      setcity(location);
+    }
     dispatch(sessionActions.removeSessionDetails());
     dispatch(sessionActions.addSessionUserID({ user_id: _id }));
   }, []);
@@ -60,13 +62,14 @@ const Home = () => {
         <div className=" p-6 flex gap-6 justify-around items-center">
           <select
             onChange={Handle$Onchange$VechileType}
-            className=" cursor-pointer p-1 rounded w-[20vw] outline-none"
+            className="text-center cursor-pointer p-1 rounded w-[20vw] outline-none"
             name="Vehicle"
           >
             <option value="">Vehicle Type</option>
             <option value="two-wheeler">Two Wheeler</option>
             <option value="three-wheeler">Three Wheeler</option>
             <option value="four-wheeler">Four Wheeler</option>
+            <option value="mini-bus">Mini Bus</option>
           </select>
           <CitiesAutoComplete city={city} setcity={setcity} />
         </div>

@@ -30,7 +30,7 @@ export const put$getDrivers = async (
   chunk: number
 ): Promise<ResponseForFiltered["Req"]> => {
   try {
-    console.log(headers, filters);
+    // console.log(headers, filters);
     const response = await axios.put(
       `api/driver/getAllFilteredDrivers?chunk=${chunk}`,
       filters,
@@ -38,7 +38,7 @@ export const put$getDrivers = async (
         headers,
       }
     );
-    console.log(response);
+    // console.log(response);
     return {
       status: response.status,
       totalChunks: response.data.totalChunks,

@@ -16,6 +16,9 @@ import { Unauthorized } from "./Pages/Unauthorized";
 // import Requests
 // import { New } from './Components/Maps/New';
 import { Request } from "./Pages/Requests";
+import { AdminHome } from "./Pages/Admin/AdminHome";
+import { CreateCab } from "./Pages/Admin/CreateCab";
+import { DriverHome } from "./Pages/DriverProgram/Home";
 import Role from "./Validator/UserRole";
 function App() {
   setBaseURL();
@@ -27,16 +30,70 @@ function App() {
         <Route
           path="/"
           element={
-            <Role access="user">
               <Splash />
+          }
+        />
+        <Route
+          path="/driverhome"
+          element={
+              <Role access="driver" >
+              <DriverHome />
+            </Role>
+          }
+        />
+        <Route
+          path="/driverrequests"
+          element={
+              <Role access="driver" >
+              <DriverHome />
+            </Role>
+          }
+        />
+        <Route
+          path="/driveraccepted"
+          element={
+              <Role access="driver" >
+              <DriverHome />
+            </Role>
+          }
+        />
+        <Route
+          path="/driverupdate"
+          element={
+              <Role access="driver" >
+              <DriverHome />
+            </Role>
+          }
+        />
+        <Route
+          path="/driveraccepted"
+          element={
+            <Role access="driver" >
+              <DriverHome />
             </Role>
           }
         />
         <Route
           path="/home"
           element={
-            <Role access="user">
+            <Role access="user" >
               <Home />
+            </Role>
+          }
+        />
+        <Route
+          path="/adminhome"
+          element={
+            <Role access="Admin" >
+              <AdminHome />
+            </Role>
+          }
+        />
+        <Route
+          path="/createcab"
+          element={
+            <Role access="Admin"  >
+              <CreateCab />
             </Role>
           }
         />
@@ -54,7 +111,7 @@ function App() {
         <Route
           path="/drivers"
           element={
-            <Role access="user">
+            <Role access="user" >
               <Driver />
             </Role>
           }
@@ -62,15 +119,16 @@ function App() {
         <Route
           path="/maps"
           element={
-            <Role access="user">
+            <Role access="user"  >
               <Maps />
             </Role>
           }
         />
+        
         <Route
           path="timeandkm"
           element={
-            <Role access="user">
+            <Role access="user"  >
               <TimeAndKm />
             </Role>
           }
@@ -78,17 +136,13 @@ function App() {
         <Route
           path="/history"
           element={
-            <Role access="user">
               <History />
-            </Role>
           }
         />
         <Route
           path="/requests"
           element={
-            <Role access="user">
               <Request />
-            </Role>
           }
         />
         <Route path="/unauthorized" element={<Unauthorized />} />

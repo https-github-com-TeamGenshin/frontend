@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Navigator } from '../../Components/Navigator';
 import { DownOutlined } from '@ant-design/icons';
 import { Card } from './Card';
-
+import { get$AcceptedRequestsOfUser } from '../../API/Accepted';
 // type
 // car name
 // payable amount
@@ -11,13 +11,33 @@ import { Card } from './Card';
 
 export const History = () => {
 
-  const dateTime = "2023-07-08 02:08:33"
+  const [Data, setData] = React.useState<any>([])
 
-  return <div className="bg-slate-300 w-screen h-screen">
+  useEffect(() => {
+    get$AcceptedRequestsOfUser().then((data: any) => {
+      console.log(data)
+      setData(data.data)
+    })
+  }, [])
+
+  // const dateTime = "2023-07-08 02:08:33"
+
+  return(
+  <>
     <Navigator />
-    <p className='text-center text-2xl'>Before</p>
-    <Card/>
-    <p className='text-center text-2xl'>After</p>
-    <Card />
-  </div>;
+    <div className="flex flex-col items-center justify-center bg-slate-300 w-screen h-[85.5vh]">
+        <p className='text-center text-2xl p-4'>Before</p>
+        {
+          Data.map((data: any) => {
+            return <Card data={data} bora = {1} />
+          })
+        }
+      <p className='text-center text-2xl p-4'>After</p>
+        {
+          Data.map((data: any) => {
+            return <Card data={data} bora = {-1} />
+          })
+        }
+    </div>
+  </>);
 }

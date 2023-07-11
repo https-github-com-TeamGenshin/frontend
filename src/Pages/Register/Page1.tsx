@@ -52,7 +52,7 @@ export const Page1 = ({ setpage }: { setpage: any }) => {
             message.error(validation)
             return
         }
-        console.log(isDriver)
+        // console.log(isDriver)
         if (isDriver) {
             dispatch(registerActions.addDriverUsername({ username: nameRef.current?.value }))
             dispatch(registerActions.addDriverAge({ age: ageRef.current?.value }))
@@ -66,7 +66,7 @@ export const Page1 = ({ setpage }: { setpage: any }) => {
             dispatch(registerActions.addUserGender({ gender: genderRef.current?.value }))
         }
 
-        console.log(data)
+        // console.log(data)
         // dispatch(loginAction.userDetails(data))
         // post$createUser(data)
         setpage(1)

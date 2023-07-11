@@ -1,6 +1,6 @@
 import React from 'react'
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-
+import { post$AcceptedOneRequestOfUser } from '../../API/Accepted';
 const BeforeOrAfter = (dateTime: string) => {
     const currentDateTime = new Date();
 
@@ -18,24 +18,29 @@ const BeforeOrAfter = (dateTime: string) => {
 }
 
 
-export const Card = () => {
+export const Card = ({ data, bora } : {data : any, bora : number}) => {
 
-    const dateTime = "2023-07-08 02:08:33"
+    const dateTime = data.start_date
 
     const [show, setshow] = React.useState<boolean>(false)
 
+    const OnclickEvent = async () => {
+        // await post$AcceptedOneRequestOfUser({_id: }).then((data) => {
+        // console.log(data);
+        // })
+    }
+
     return (
         <div>
-            <div className={` ${BeforeOrAfter(dateTime) === 1 && "hidden"} w-full flex flex-col items-center justify-center`}>
+            <div className={` ${BeforeOrAfter(dateTime) === bora && "hidden"} w-full flex flex-col items-center justify-center`}>
                 <div className="bg-white w-[80vw] p-5 flex justify-between items-center gap-10">
                     <div className="bg-slate-600 w-16 h-16 rounded-full"></div>
                     <div>
-                        <div>Driver Name : Ajinkya</div>
-                        <div>Start Date : {dateTime}</div>
-                        {/* <div>Time Required : 23 Hours</div> */}
-                        <div>Register Number : 2374923</div>
+                        <div>Driver Name : { data.driver_name }</div>
+                        <div>Start Date : {data.start_date}</div>
+                        <div>Register Number : {data.model_registration_no }</div>
                     </div>
-                    {!show && <div onClick={() => setshow(true)} className='text-3xl cursor-pointer'><DownOutlined /></div>}
+                    {!show && <div onClick={() => { setshow(true); }} className='text-3xl cursor-pointer'><DownOutlined /></div>}
                     {show && <div onClick={() => setshow(false)} className='text-3xl cursor-pointer'><UpOutlined /></div>}
 
                 </div>

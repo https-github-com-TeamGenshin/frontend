@@ -5,7 +5,7 @@ export const Loader = () => {
 
     const loader = useSelector((state: any) => state.login.loader)
 
-    console.log(loader)
+    // console.log(loader)
     return (
         <div>
             {

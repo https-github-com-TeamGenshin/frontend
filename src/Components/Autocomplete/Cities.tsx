@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent } from "react";
+import React, { useEffect, useState, ChangeEvent, useRef } from "react";
 import { Cities } from "../../Pages/Register/Cities";
 
 export const CitiesAutoComplete = ({
@@ -11,6 +11,21 @@ export const CitiesAutoComplete = ({
   const [flim, setflim] = useState(false);
   const [cit, setc] = useState<string[]>([...Cities.map((city) => city.name)]);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+
+  document.getElementById("cityauto")?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      setcity(cit[0]);
+      setflim(false);
+    }
+  });
+
+  setTimeout(() => {
+    inputRef.current?.focus();
+  }, 100);
+
+
   const HashFilter = (val: string) => {
     let cities: string[] = [];
     Cities.filter((c) => {
@@ -21,21 +36,23 @@ export const CitiesAutoComplete = ({
     });
   };
 
-  console.log(city);
+  // console.log(city);
 
   return (
-    <div className="">
+    <div id = "cityauto" className="">
       {flim && (
         <div className="h-screen w-screen overflow-auto text-center absolute top-0 left-0">
           <div className="bg-black">
             <input
+              ref={inputRef}
               className="m-6 p-2 w-[60vw] rounded-2xl outline-none bg-white text-black opacity-100"
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 HashFilter(event.target.value)
               }
             />
+            <button onClick={() =>  setflim(false)} className="text-white">Cancel</button>
           </div>
-          <div className="min-h-screen bg-black opacity-90 flex flex-col gap-2">
+          <div className=" min-h-screen bg-black opacity-90 flex flex-col gap-2">
             {cit.sort().map((c, i) => (
               <p
                 key={i}
@@ -43,7 +60,7 @@ export const CitiesAutoComplete = ({
                   setcity(c);
                   setflim(false);
                 }}
-                className="text-white"
+                className="text-white cursor-pointer"
               >
                 {c}
               </p>
@@ -56,7 +73,7 @@ export const CitiesAutoComplete = ({
           setc([...Cities.map((city) => city.name)]);
           setflim(true);
         }}
-        className="w-[20vw] bg-white p-1 rounded"
+        className="w-[20vw] cursor-pointer bg-white p-1 rounded text-center"
       >
         {city !== "" ? city : "Select City"}
       </div>

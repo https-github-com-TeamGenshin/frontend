@@ -56,7 +56,7 @@ export const Maps: React.FC = () => {
 
   const onChangeAddress = (autocomplete: any) => {
     const place = autocomplete.getPlace();
-    console.log(place.geometry.location.lat(), place.geometry.location.lng());
+    // console.log(place.geometry.location.lat(), place.geometry.location.lng());
   };
 
   const onLoad = (autocomplete: any) => {
@@ -70,7 +70,7 @@ export const Maps: React.FC = () => {
         lng: autoc.getPlace().geometry.location.lng(),
       });
     } else {
-      console.log("Autocomplete is not loaded yet!");
+      // console.log("Autocomplete is not loaded yet!");
     }
   };
 
@@ -112,7 +112,7 @@ export const Maps: React.FC = () => {
                     originRef.current.value = results[0].formatted_address;
                   }
                 } else {
-                  console.log("Geocoder failed due to: ", status);
+                  // console.log("Geocoder failed due to: ", status);
                 }
               }
             );

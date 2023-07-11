@@ -53,3 +53,5 @@ export const put$searchCabs = async (
     };
   }
 };
+
+// export const post$createCab = async ( data: Cab ): Promise

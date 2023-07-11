@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Navigator } from "../../../Components/Navigator";
 import { Pagination, message } from "antd";
 import Background from "../../../Assets/background1.png";
-import { Rate } from "antd";
+import { Card } from "./Card";
 
 export const Driver = () => {
   const [drivers, setDrivers] = React.useState<any>([]);
@@ -32,7 +32,7 @@ export const Driver = () => {
 
   useEffect(() => {
     setDrivers([]);
-    console.log(city);
+    // console.log(city);
     put$getDrivers(
       {
         rating: rating || 1,
@@ -45,19 +45,20 @@ export const Driver = () => {
       chunk
     )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         !res.data && message.error("No Drivers to show");
 
         setDrivers(res.data);
         totalChunk.current = res.totalChunks;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [chunk, hrs_rate, kms_rate, rating, experience_years]);
 
   const Handle$OnClick$DriverComponent = (driver: any) => {
     dispatch(sessionActions.addSessionDriverID({ driver_id: driver._id }));
+    dispatch(sessionActions.addSessionDriverNo({ driver_no: driver.mobile_no }));
     dispatch(
       sessionActions.addSessionHourlyRate({
         hourly_rate: hourly_rate + driver.rate_per_hrs,
@@ -129,49 +130,14 @@ export const Driver = () => {
         {totalChunk.current !== 0 &&
           drivers?.map((driver: any, id: any) => {
             return (
-              <div
-                onMouseEnter={() => setcid(id)}
-                onMouseLeave={() => setcid(-1)}
-                style={{
-                  backgroundColor: "rgba(17, 25, 40, 0.20)",
-                  backdropFilter: "blur(16px) saturate(200%)",
-                }}
-                className="cursor-pointer rounded-xl p-3 w-84"
-                onClick={() => Handle$OnClick$DriverComponent(driver)}
-              >
-                <img className="w-56 h-48" src={driver.imageurl}></img>
-                <div className="p-3 flex flex-col w-full justify-between">
-                  <div>{driver.username}</div>
-                  <Rate
-                    className="text-sm"
-                    allowHalf
-                    defaultValue={driver.rating}
-                  />
-                </div>
-                <div
-                  className={` rounded-xl opacity-80 flex flex-col justify-center items-center gap-5 w-full h-full text-white absolute top-0 left-0 ${
-                    cid === id ? "" : "hidden"
-                  } bg-slate-700 `}
-                >
-                  <p>Experience Year : {driver.experience_years}</p>
-                  <p>Hourly Rate : {driver.rate_per_hrs}</p>
-                  <p>Kilometer Rate : {driver.rate_per_km}</p>
-                  <p>Age : {driver.age}</p>
-                  <p></p>
-                </div>
-                {/* <div>{driver.rating}</div> */}
-                {/* <div>{driver.experience_years}</div> */}
-                {/* <div>{driver.age}</div> */}
-                {/* <div>{driver.rate_per_hrs}</div> */}
-                {/* <div>{driver.rate_per_km}</div> */}
-              </div>
+              <Card cid={cid} id= {id} setcid = {setcid} driver={ driver } Handler={ Handle$OnClick$DriverComponent } />
             );
           })}
       </div>
-      <div className="absolute bottom-0 flex w-[98vw] p-4 justify-center">
+      <div className="absolute z-20 bottom-0 flex w-[98vw] p-4 justify-center">
         <Pagination
           onChange={(e) => setchunk(e)}
-          className=" p-2 rounded-xl bg-white text-black w-fit"
+          className=" border-2 border-black p-2 rounded-xl bg-white text-black w-fit"
           defaultCurrent={1}
           total={(totalChunk.current ?? 1) * 10}
         />

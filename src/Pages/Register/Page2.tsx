@@ -48,7 +48,7 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
         post$validateEmail({ email_id: email }).then((res: any) => {
             const decoded: { otp: number } = jwtDecode(res.data.token)
             setotp(decoded.otp)
-            console.log(res.data.token)
+            // console.log(res.data.token)
             setstate(1)
             if (res.status === 200) {
                 message.success("OTP sent to your email")
@@ -83,7 +83,7 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
             .then((confirmationResult) => {
                 // console.log(confirmationResult)
                 window.confirmationResult = confirmationResult;
-                console.log(confirmationResult)
+                // console.log(confirmationResult)
                 setstate(2)
                 dispatch(loginAction.addloader({ loader: false }))
                 // if (confirmationResult === 200) {
@@ -93,14 +93,14 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
                 // setShowOTP(true);
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
                 // setLoading(false);
             });
     }
 
     const Handle$Phone = () => {
         dispatch(loginAction.addloader({ loader: true }))
-        console.log(phone)
+        // console.log(phone)
         if (phone === "") {
             message.error("Please enter Phone Number")
             dispatch(loginAction.addloader({ loader: false }))
@@ -126,7 +126,7 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
         (window as any).confirmationResult
             .confirm(otpValue)
             .then(async (res: any) => {
-                console.log(res.user.phoneNumber, "+91" + phone);
+                // console.log(res.user.phoneNumber, "+91" + phone);
                 if (res.user.phoneNumber === "+91" + phone) {
                     message.success("Phone Number verified")
 
@@ -266,7 +266,7 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
                             <p className='text-2xl'>Enter otp send to</p>
                             <p className='text-[#969696] text-xl'>{email ?? "abc@gmail.com"}</p>
                         </div>
-                            <div onLoad={() => console.log("Loaded")} className='w-[20vw] text-black flex items-center justify-evenly gap-3 p-3 rounded-xl'>
+                            <div  className='w-[20vw] text-black flex items-center justify-evenly gap-3 p-3 rounded-xl'>
                                 <div className='bg-white rounded-lg w-10 h-10 flex justify-center items-center'>
                                     <input type="number" onKeyDown={(data) => Handle$OTPBack(data.key, 0)} onChange={(event) => Handle$OTPInputs(event.target.value.toString(), 0)} id="otp-0" className='w-4 h-5 text-xl font-bold outline-none'></input>
                                 </div>

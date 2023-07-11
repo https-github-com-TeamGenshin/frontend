@@ -19,7 +19,7 @@ export const EmailVerification = ({ setUserPopup }: { setUserPopup: any }) => {
         post$validateEmail({ email_id: email }).then((res: any) => {
             const decoded: { otp: number } = jwtDecode(res.data.token)
             setotp(decoded.otp)
-            console.log(res.data.token)
+            // console.log(res.data.token)
             setstate(1)
             if (res.status === 200) {
                 message.success("OTP sent to your email")

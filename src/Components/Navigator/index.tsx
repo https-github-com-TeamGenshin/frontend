@@ -18,6 +18,7 @@ export const Navigator = () => {
         <Link to = "/home" className='text-2xl'>Home</Link>
         <Link to = "/requests" className='text-2xl'>Requests</Link>
         <Link to = "/history" className='text-2xl'>History</Link>
+        <Link to = "/" className="text-2xl"></Link>
       </div>
     </div>
   )

@@ -30,7 +30,7 @@ interface verifyUserTokenType {
   Req: { status: number; data: string };
 }
 
-export const get$verifyUserToken = async (): Promise<
+export const post$verifyUserToken = async (): Promise<
   verifyUserTokenType["Req"]
 > => {
   try {
@@ -44,7 +44,7 @@ export const get$verifyUserToken = async (): Promise<
         },
       }
     );
-    console.log(response.data.data.user);
+    // console.log(response.data.data.user);
     return {
       status: 200,
       data: response.data.data,

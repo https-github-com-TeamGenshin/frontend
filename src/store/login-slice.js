@@ -123,6 +123,7 @@ const loginSlice = createSlice({
       state.name = action.payload.name;
       state.location = action.payload.location;
       state.role = action.payload.role;
+      state.pendingRequest = action.payload.pendingRequest;
       state.isLogin = true;
     },
     addVehileType(state, action) {

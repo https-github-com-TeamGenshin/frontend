@@ -12,13 +12,14 @@ const sessionSlice = createSlice({
     type: "",
     cab_id: "",
     model_no: "",
-    kms: "",
-    time_required: "",
+    kms: 0,
+    time_required: 0,
     total_amount: "",
     model_name: "",
     start_date: "",
     hourly_rate: 0,
     kms_rate: 0,
+    driver_no : ""
   },
   reducers: {
     addSessionLocation(state, action) {
@@ -59,6 +60,9 @@ const sessionSlice = createSlice({
     },
     addSessionKmsRate(state, action) {
       state.kms_rate = action.payload.kms_rate;
+    },
+    addSessionDriverNo(state, action) {
+      state.driver_no = action.payload.driver_no;
     },
     removeSessionDetails(state) {
       state.location = {

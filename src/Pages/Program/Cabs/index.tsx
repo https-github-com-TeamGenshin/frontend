@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { Navigator } from '../../../Components/Navigator'
 import { Pagination } from 'antd';
 import Background from "../../../Assets/background1.png"
+import { Card } from './Card'
 
 export const Cabs = () => {
   const [cabs, setcabs] = useState<any>([]);
@@ -31,6 +32,10 @@ export const Cabs = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setchunk(1);
+  }, [kms_rate, hrs_rate, fuel_type, colour])
+
+  useEffect(() => {
     setcabs([]);
     const DataToSend = {
       location: city,
@@ -41,7 +46,7 @@ export const Cabs = () => {
       kms_rate: kms_rate,
     };
 
-    console.log(DataToSend);
+    // console.log(DataToSend);
 
     put$getCabs(DataToSend, chunk)
       .then((data) => {
@@ -49,14 +54,14 @@ export const Cabs = () => {
           message.error("No cabs to show");
         }
         setcabs(data.data);
-        console.log(data);
+        // console.log(data);
         totalChunk.current = data.totalChunks;
       })
       .catch((err) => console.log(err));
   }, [kms_rate, hrs_rate, chunk, fuel_type, colour]);
 
   const Handle$OnClick$CabComponent = (cab: any) => {
-    console.log(cab.model_name);
+    // console.log(cab.model_name);
     dispatch(sessionActions.addSessionModelNo({ model_no: cab.model_no }));
     dispatch(
       sessionActions.addSessionModelName({ model_name: cab.model_name })
@@ -79,7 +84,7 @@ export const Cabs = () => {
   };
 
   return (
-    <div style={{ backgroundImage: `url(${Background})`, backgroundPosition : "center" }} className='text-white h-screen'>
+    <div style={{ backgroundImage: `url(${Background})`, backgroundPosition: "center" }} className='text-white h-screen'>
       <Navigator />
       <div className="flex w-full justify-evenly p-6 text-black">
         <select
@@ -124,51 +129,18 @@ export const Cabs = () => {
       </div>
       <div className="overflow-auto h-[70vh] flex gap-10 flex-wrap justify-center">
         {totalChunk.current !== 0 &&
-          cabs.map((cab: any, id : number) => {
+          cabs.map((cab: any, id: number) => {
             return (
               <>
-                
-                <div onMouseEnter={() => setcid(id)} onMouseLeave={() => setcid(-1)}
-                  style={{
-                    backgroundColor: "rgba(17, 25, 40, 0.20)",
-                    backdropFilter: "blur(16px) saturate(200%)",
-                  }}
-                  className="relative cursor-pointer rounded-xl p-3 w-84"
-                  onClick={() => Handle$OnClick$CabComponent(cab)}
-                >
-                  <img className="w-72 h-44" src={cab.imageurl} alt="" />
-                  <div className="flex w-full justify-between">
-                    <p className="text-sm">{cab.model_name}</p>
-                    <p className="text-sm">{cab.fuel_type}</p>
-                    <p style={{ backgroundColor: cab.colour }} className='absolute top-5 right-5 w-5 h-5 rounded-full'></p>
-                  </div>
-                  <div className={` rounded-xl opacity-80 flex flex-col justify-center items-center gap-5 w-full h-full text-white absolute top-0 left-0 ${cid === id ? "" : "hidden"} bg-slate-700 `}>
-                    <p>Number of Available : {cab.no_of_seats}</p>
-                    <p>Hourly Rate : {cab.hrs_rate}</p>
-                    <p>Kilometer Rate : {cab.kms_rate}</p>
-                    <p>Number of Available : { cab.no_of_available }</p>
-                    <p></p>
-                  </div>
-                  {/* <p className='text-xl'>{cab.location}</p> */}
-                  {/* <p className='text-xl'>{cab.colour}</p> */}
-                  {
-                    // no.of seats
-                    // hours rate
-                    // kms rate
-                    // no.of availble
-                  }
-                  {/* <p className='text-xl'>{cab.hrs_rate}</p> */}
-                  {/* <p className='text-xl'>Kms_rate : {cab.kms_rate}</p> */}
-                </div>
+                <Card cid={cid} id={id} cab={cab} setcid={setcid} Handler={Handle$OnClick$CabComponent} />
               </>
-              
             );
           })}
       </div>
-      <div className="absolute bottom-0 flex w-[98vw] p-4 justify-center">
+      <div className="absolute z-20  bottom-0 flex w-[98vw] p-4 justify-center">
         <Pagination
           onChange={(e) => setchunk(e)}
-          className=" p-2 rounded-xl bg-white text-black w-fit"
+          className=" border-2 border-black p-2 rounded-xl bg-white text-black w-fit"
           defaultCurrent={1}
           total={(totalChunk.current ?? 1) * 10}
         />

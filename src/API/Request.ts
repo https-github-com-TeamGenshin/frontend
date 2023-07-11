@@ -22,13 +22,14 @@ interface createRequestType {
 }
 
 export const post$createRequest = async (data: createRequestType["Req"]) => {
+  // console.log("Hit")
   const res = await axios
     .post("api/request/createRequest", data, {
       headers,
     })
     .catch((err) => console.log(err));
 
-  console.log(res?.data);
+  // console.log(res?.data);
   return res?.data;
 };
 
@@ -39,6 +40,6 @@ export const post$getRequest = async (data: { request_id: string }) => {
     })
     .catch((err) => console.log(err));
 
-  console.log(res?.data);
+  //console.log(res?.data);
   return res?.data;
 };
