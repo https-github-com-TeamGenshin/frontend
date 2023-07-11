@@ -21,11 +21,16 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { RequestDetails } = useSelector((state: any) => state.login);
+  const { RequestDetails, _id } = useSelector((state: any) => state.login);
 
   useEffect(() => {
     dispatch(loginAction.addCity({ city: city }));
   }, [city]);
+
+  useEffect(() => {
+    dispatch(sessionActions.removeSessionDetails());
+    dispatch(sessionActions.addSessionUserID({ user_id: _id }));
+  }, []);
 
   const Validate$TypeandCity = () => {
     if (RequestDetails.type === "") {

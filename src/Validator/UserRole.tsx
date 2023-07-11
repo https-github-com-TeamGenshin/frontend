@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { loginAction } from "../store/login-slice";
 import { message } from "antd";
 import { get$verifyUserToken } from "../API/Login";
+import { sessionActions } from "../store/session-slice";
 
 const UserRole = ({ children, access }: { children: any; access: string }) => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
     if (data.status === 500) {
       message.error(data.data);
     } else {
+      dispatch(sessionActions.addSessionUserID({ user_id: _id }));
       let object: Object;
       if (data.data.role === "user") {
         object = {

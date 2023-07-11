@@ -60,6 +60,24 @@ const sessionSlice = createSlice({
     addSessionKmsRate(state, action) {
       state.kms_rate = action.payload.kms_rate;
     },
+    removeSessionDetails(state) {
+      state.location = {
+        latitude: 0,
+        longitude: 0,
+      };
+      state.user_id = "";
+      state.driver_id = "";
+      state.type = "";
+      state.cab_id = "";
+      state.model_no = "";
+      state.kms = "";
+      state.time_required = "";
+      state.total_amount = "";
+      state.model_name = "";
+      state.start_date = "";
+      state.hourly_rate = 0;
+      state.kms_rate = 0;
+    },
   },
 });
 
