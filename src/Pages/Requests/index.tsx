@@ -6,6 +6,7 @@ import { post$verifyUserToken } from "../../API/Login";
 import { Navigator } from "../../Components/Navigator";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../../store/login-slice";
+import { useDispatch } from "react-redux
 
 export const Request = () => {
   const [Data, setData] = useState<any>({});
@@ -13,6 +14,7 @@ export const Request = () => {
   const dispatch = useDispatch();
 
   const loginSelector = useSelector((state: any) => state.login);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let pendingRequest: string = loginSelector.pendingRequest;
@@ -54,6 +56,7 @@ export const Request = () => {
       // console.log(pendingRequest)
       post$getRequest({ request_id: pendingRequest }).then((response) => {
         setData(response.data);
+
         Pusher.logToConsole = true;
         const pusher = new Pusher("2d17248b4e85ba67a14c", {
           cluster: "ap2",

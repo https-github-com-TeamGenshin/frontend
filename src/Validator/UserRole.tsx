@@ -9,12 +9,10 @@ import { sessionActions } from "../store/session-slice";
 const UserRole = ({ children, access }: { children: any; access: string }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { role, _id }: { role: string; _id: string, pendingRequest: string } = useSelector(
-    (state: any) => state.login
-  );
+  const { role, _id }: { role: string; _id: string; pendingRequest: string } =
+    useSelector((state: any) => state.login);
   const [first, setFirst] = useState<boolean>(true);
-  const [pendingRequest,setPendingRequest] = useState<String>("");
-  
+  const [pendingRequest, setPendingRequest] = useState<String>("");
 
   const Handle$Response$VerifyToken = (data: any) => {
     // console.log(data.data.role);
@@ -37,8 +35,8 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
         };
         dispatch(loginAction.addLogin({ ...object }));
         setPendingRequest(data.data.pending_request);
-        if(first){
-          navigate("/home")
+        if (first) {
+          navigate("/home");
         }
       }
       if (data.data.role === "driver") {
@@ -55,8 +53,8 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
           role: data.data.role,
         };
         dispatch(loginAction.addDriverLogin({ ...object }));
-        if(first){
-          navigate("/driverhome")
+        if (first) {
+          navigate("/driverhome");
         }
       }
       if (data.data.role === "Admin") {
@@ -69,9 +67,9 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
           role: data.data.role,
         };
         dispatch(loginAction.addLogin({ ...object }));
-        // if(first){
-        //   navigate("/adminhome")
-        // }
+        if (first) {
+          navigate("/adminhome");
+        }
       }
       setFirst(false);
     }
@@ -88,8 +86,6 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
     }
   }, []);
 
-
-
   if (role !== access && role !== "" && first === false) {
     return <Navigate to="/unauthorized" />;
   }
@@ -99,7 +95,10 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
   if (role === access && _id !== "64ad2bbdd73ea6b35065340e") {
     return children;
   }
-  if (role === access && (pendingRequest === undefined || pendingRequest === "")) {
+  if (
+    role === access &&
+    (pendingRequest === undefined || pendingRequest === "")
+  ) {
     return children;
   }
 };
