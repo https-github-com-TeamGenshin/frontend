@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../store/login-slice";
 import { message } from "antd";
@@ -17,7 +17,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { RequestDetails, _id, location } = useSelector((state: any) => state.login);
+  const { RequestDetails, _id, location } = useSelector(
+    (state: any) => state.login
+  );
 
   useEffect(() => {
     dispatch(loginAction.addCity({ city: city }));
@@ -86,7 +88,7 @@ const Home = () => {
               onClick={() => {
                 if (Validate$TypeandCity()) navigate("/cabs");
               }}
-              className="cursor-pointer rounded-2xl bg-[#14224A] p-2 text-center font-bold w-fit text-white"
+              className="cursor-pointer rounded-2xl bg-[#14224A] p-2 text-center font-bold w-[10vw] text-white"
             >
               Explore
             </div>

@@ -1,16 +1,17 @@
 import { useEffect, useState, useRef } from "react";
 import Pusher from "pusher-js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { post$getRequest } from "../../API/Request";
 import { post$verifyUserToken } from "../../API/Login";
 import { Navigator } from "../../Components/Navigator";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../../store/login-slice";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux
 
 export const Request = () => {
   const [Data, setData] = useState<any>({});
   const timeref = useRef<any>(null);
+  const dispatch = useDispatch();
 
   const loginSelector = useSelector((state: any) => state.login);
   const dispatch = useDispatch();
@@ -53,8 +54,8 @@ export const Request = () => {
       });
     } else {
       // console.log(pendingRequest)
-      post$getRequest({ request_id: pendingRequest }).then((data) => {
-        setData(data.data);
+      post$getRequest({ request_id: pendingRequest }).then((response) => {
+        setData(response.data);
 
         Pusher.logToConsole = true;
         const pusher = new Pusher("2d17248b4e85ba67a14c", {

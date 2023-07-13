@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { put$getCabs } from '../../../API/cabs'
-import { Select, message } from 'antd'
-import { useSelector, useDispatch } from 'react-redux'
-import { sessionActions } from '../../../store/session-slice'
-import { useNavigate } from 'react-router-dom'
-import { Navigator } from '../../../Components/Navigator'
-import { Pagination } from 'antd';
-import Background from "../../../Assets/background1.png"
-import { Card } from './Card'
+import React, { useEffect, useRef, useState } from "react";
+import { put$getCabs } from "../../../API/cabs";
+import { Select, message } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { sessionActions } from "../../../store/session-slice";
+import { useNavigate } from "react-router-dom";
+import { Navigator } from "../../../Components/Navigator";
+import { Pagination } from "antd";
+import Background from "../../../Assets/background1.png";
+import { Card } from "./Card";
 
 export const Cabs = () => {
   const [cabs, setcabs] = useState<any>([]);
@@ -33,7 +33,7 @@ export const Cabs = () => {
 
   useEffect(() => {
     setchunk(1);
-  }, [kms_rate, hrs_rate, fuel_type, colour])
+  }, [kms_rate, hrs_rate, fuel_type, colour]);
 
   useEffect(() => {
     setcabs([]);
@@ -50,12 +50,11 @@ export const Cabs = () => {
 
     put$getCabs(DataToSend, chunk)
       .then((data) => {
-        
         if (data.totalChunks === 0) {
           message.error("No cabs to show");
         }
-        setcabs(data.data);
         console.log(data);
+        setcabs(data.data);
         totalChunk.current = data.totalChunks;
       })
       .catch((err) => console.log(err));
@@ -85,7 +84,13 @@ export const Cabs = () => {
   };
 
   return (
-    <div style={{ backgroundImage: `url(${Background})`, backgroundPosition: "center" }} className='text-white h-screen'>
+    <div
+      style={{
+        backgroundImage: `url(${Background})`,
+        backgroundPosition: "center",
+      }}
+      className="text-white h-screen"
+    >
       <Navigator />
       <div className="flex w-full justify-evenly p-6 text-black">
         <select
@@ -133,7 +138,13 @@ export const Cabs = () => {
           cabs.map((cab: any, id: number) => {
             return (
               <>
-                <Card cid={cid} id={id} cab={cab} setcid={setcid} Handler={Handle$OnClick$CabComponent} />
+                <Card
+                  cid={cid}
+                  id={id}
+                  cab={cab}
+                  setcid={setcid}
+                  Handler={Handle$OnClick$CabComponent}
+                />
               </>
             );
           })}

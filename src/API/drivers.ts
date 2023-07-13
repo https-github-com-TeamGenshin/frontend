@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ResponseForFiltered} from "./interfaces";
+import { ResponseForFiltered } from "./interfaces";
 import { loginUserType } from "./Login";
 
 const headers = {
@@ -12,7 +12,7 @@ export const post$loginDriver = async (
 ): Promise<loginUserType["Req"]> => {
   try {
     const response = await axios.post(`api/driver/loginDriver`, body);
-    console.log(response)
+    // console.log(response)
     localStorage.setItem("token", response.data.token);
     return {
       status: response.status,
@@ -25,8 +25,6 @@ export const post$loginDriver = async (
     };
   }
 };
-
- 
 
 export const put$getDrivers = async (
   filters: object,
@@ -91,7 +89,7 @@ export const get$getAccepted = async () => {
   }
 };
 
-export const post$RequestAccepted = async (data : any) => {
+export const post$RequestAccepted = async (data: any) => {
   try {
     const res = await axios.put("api/request/acceptRequest", data, {
       headers,
@@ -107,7 +105,7 @@ export const post$RequestAccepted = async (data : any) => {
       data: err.response.data.message,
     };
   }
-}
+};
 
 export const post$RequestRejected = async (data: any) => {
   try {
@@ -144,10 +142,9 @@ export const get$getOneDriver = async () => {
   }
 };
 
-
-export const put$updateDriver = async (data : any) => {
+export const put$updateDriver = async (data: any) => {
   try {
-    const res = await axios.put("api/driver/updateDriver", data, {headers});
+    const res = await axios.put("api/driver/updateDriver", data, { headers });
     return {
       status: res.status,
       data: res.data.data,
@@ -158,11 +155,11 @@ export const put$updateDriver = async (data : any) => {
       data: err.response.data.message,
     };
   }
-}
+};
 
-export const put$deleteDriver = async (data : any) => {
+export const put$deleteDriver = async (data: any) => {
   try {
-    const res = await axios.put("api/driver/deleteDriver", data, {headers});
+    const res = await axios.put("api/driver/deleteDriver", data, { headers });
     return {
       status: res.status,
       data: res.data.data,
@@ -173,4 +170,4 @@ export const put$deleteDriver = async (data : any) => {
       data: err.response.data.message,
     };
   }
-}
+};

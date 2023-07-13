@@ -27,20 +27,17 @@ export const Login = () => {
       // console.log(res);
       if (res && res?.status === 200) {
         // console.log(res.data.data.role);
-        if(res.data.data.role === "user"){
+        if (res.data.data.role === "user") {
           navigate("/home");
-        }
-        else if (res.data.data.role === "driver") {
+        } else if (res.data.data.role === "driver") {
           navigate("/driverhome");
-        }
-        else if(res.data.data.role === "Admin"){
+        } else if (res.data.data.role === "Admin") {
           navigate("/adminhome");
         }
         message.success("Login Successful");
       } else if ((res && res.status === 400) || res.status === 404) {
         post$loginDriver(data).then((res: any) => {
           if (res && res.status === 200) {
-            
             navigate("/driverhome");
             message.success("Login Successful");
           } else if ((res && res?.status === 400) || res?.status === 404) {
@@ -54,7 +51,10 @@ export const Login = () => {
   return (
     <div>
       <div className=" h-full text-black p-8 flex flex-col items-center gap-4">
-        <img className="w-[20vw] h-[16vw] bg-black rounded-full" src={logo}></img>
+        <img
+          className="w-[20vw] h-[16vw] bg-black rounded-full"
+          src={logo}
+        ></img>
         <p className="text-2xl font-semibold text-center">Welcome!</p>
       </div>
       <div className="flex flex-col w-screen items-center gap-5">

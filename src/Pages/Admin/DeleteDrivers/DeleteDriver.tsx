@@ -25,7 +25,7 @@ export const DeleteDriver = () => {
   if (confirmDelete === "yes") {
     put$deleteDriver({ _id: driver._id })
       .then((e) => {
-        console.log(e);
+        // console.log(e);
         console.log("Successfully deleted the driver");
         navigate("/adminhome");
       })
