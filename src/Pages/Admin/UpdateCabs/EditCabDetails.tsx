@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { CloudUploadOutlined, DeleteOutlined } from '@ant-design/icons';
+import React, { useState, useRef, useEffect } from "react";
+import { CloudUploadOutlined, DeleteOutlined } from "@ant-design/icons";
 import {
   getStorage,
   ref,
@@ -8,13 +8,13 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { storage } from "../../../config/firebase.config";
-import { Navigator } from '../../../Components/Navigator';
-import { post$createCab } from '../../../API/cabs';
-import { CitiesAutoComplete } from '../../../Components/Autocomplete/Cities';
-import { message } from 'antd';
+import { Navigator } from "../../../Components/Navigator";
+import { post$createCab } from "../../../API/cabs";
+import { CitiesAutoComplete } from "../../../Components/Autocomplete/Cities";
+import { message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { put$getOneCab } from '../../../API/cabs';
-import { put$updateCab } from '../../../API/cabs';
+import { put$getOneCab } from "../../../API/cabs";
+import { put$updateCab } from "../../../API/cabs";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export const EditCabDetails = () => {
@@ -32,34 +32,37 @@ export const EditCabDetails = () => {
   const [modelNumberOfSeats, setModelNumberOfSeats] = useState<any>(0);
   const [modelRatePerHour, setModelRatePerHour] = useState<any>(0);
   const [modelRatePerKilometer, setModelRatePerKilometer] = useState<any>(0);
-  
+
   const navigate = useNavigate();
-  const sessionSelector = useSelector((state: any) => state.session)
+  const sessionSelector = useSelector((state: any) => state.session);
 
   useEffect(() => {
     if (sessionSelector) {
-      put$getOneCab({ _id: sessionSelector.cab_id, type: sessionSelector.type }).then((e: any) => {
-        setCity(e.data?.location);
-        setInputCount(e.data?.registration_number?.length);
-        setModelType(sessionSelector.type);
-        setInputValues(e.data?.registration_number);
-        setColour(e.data?.colour);
-        setImageCover(e.data?.imageurl);
-        setModelName(e.data?.model_name);
-        setModelNumber(e.data?.model_no);
-        setModelNumberOfSeats(e.data?.no_of_seats);
-        setModelRatePerHour(e.data?.hrs_rate);
-        setModelRatePerKilometer(e.data?.kms_rate);
-        setFuelType(e.data?.fuel_type);
-      }).catch(e => {
-        message.error("Cannot set Data");
-      })
+      put$getOneCab({ _id: sessionSelector.cab_id, type: sessionSelector.type })
+        .then((e: any) => {
+          console.log(e);
+          setCity(e.data?.location);
+          setInputCount(e.data?.registration_number?.length);
+          setModelType(sessionSelector.type);
+          setInputValues(e.data?.registration_number);
+          setColour(e.data?.colour);
+          setImageCover(e.data?.imageurl);
+          setModelName(e.data?.model_name);
+          setModelNumber(e.data?.model_no);
+          setModelNumberOfSeats(e.data?.no_of_seats);
+          setModelRatePerHour(e.data?.hrs_rate);
+          setModelRatePerKilometer(e.data?.kms_rate);
+          setFuelType(e.data?.fuel_type);
+        })
+        .catch((e) => {
+          message.error("Cannot set Data");
+        });
     }
-  }, [])
+  }, []);
 
   const handleAddInput = () => {
     setInputCount(inputCount + 1);
-    setInputValues([...inputValues, '']);
+    setInputValues([...inputValues, ""]);
   };
 
   const uploadFile = (e: any) => {
@@ -97,39 +100,43 @@ export const EditCabDetails = () => {
       setImageCover("");
     });
   };
-  
+
   const SubmitHandler = () => {
     put$updateCab({
-          _id: sessionSelector.cab_id,
-          registration_number: inputValues,
-          model_name: modelName,
-          model_no: modelNumber,
-          colour: colour,
-          imageurl: imageCover,
-          no_of_seats: modelNumberOfSeats,
-          kms_rate: modelRatePerHour,
-          fuel_type: fuelType,
-          hrs_rate: modelRatePerKilometer,
-          type: sessionSelector.type,
-          no_of_available: inputValues.length
-    }).then((e) => {
-      console.log(e);
-      message.success("Successfully updated the data");
-      navigate("/updateCabs")
-    }).catch(e => {
-      message.error("Cannot set Data");
+      _id: sessionSelector.cab_id,
+      registration_number: inputValues,
+      model_name: modelName,
+      model_no: modelNumber,
+      colour: colour,
+      imageurl: imageCover,
+      no_of_seats: modelNumberOfSeats,
+      kms_rate: modelRatePerHour,
+      fuel_type: fuelType,
+      hrs_rate: modelRatePerKilometer,
+      type: sessionSelector.type,
+      no_of_available: inputValues.length,
     })
-  }
+      .then((e) => {
+        // console.log(e);
+        message.success("Successfully updated the data");
+        navigate("/updateCabs");
+      })
+      .catch((e) => {
+        message.error("Cannot set Data");
+      });
+  };
 
   return (
     <>
       <Navigator />
       <div className="p-4 flex flex-col">
-        <div className='flex flex-wrap gap-2'>
+        <div className="flex flex-wrap gap-2">
           <div className="my-4">
             <h4 className="text-lg font-semibold mb-2">Model Type</h4>
             <select
-              onChange={(e) => { setModelType(e.target.value) }}
+              onChange={(e) => {
+                setModelType(e.target.value);
+              }}
               value={modelType}
               className="text-center cursor-pointer p-2 rounded w-[22.5rem] outline-dotted outline-gray-300"
               name="Vehicle"
@@ -185,7 +192,9 @@ export const EditCabDetails = () => {
             </div>
           </div>
           <div className="my-4">
-            <h4 className="text-lg font-semibold mb-2">Number of seats in Model</h4>
+            <h4 className="text-lg font-semibold mb-2">
+              Number of seats in Model
+            </h4>
             <input
               placeholder="Enter the Model(Car) seats"
               type="number"
@@ -198,17 +207,19 @@ export const EditCabDetails = () => {
             <h4 className="text-lg font-semibold mb-2">Model Rate per Hour</h4>
             <input
               value={modelRatePerKilometer}
-              type='number'
+              type="number"
               onChange={(e) => setModelRatePerKilometer(e.target.value)}
               placeholder="Enter the Model(Car) Rate in Hour"
               className="w-[22.5rem] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="my-4">
-            <h4 className="text-lg font-semibold mb-2">Model Rate per Kilometer</h4>
+            <h4 className="text-lg font-semibold mb-2">
+              Model Rate per Kilometer
+            </h4>
             <input
               value={modelRatePerHour}
-              type='number'
+              type="number"
               onChange={(e) => setModelRatePerHour(e.target.value)}
               placeholder="Enter the Model(Car) Rate in Kilometer"
               className="w-[22.5rem] px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -230,7 +241,9 @@ export const EditCabDetails = () => {
             </select>
           </div>
           <div className="my-4">
-            <h4 className="text-lg font-semibold mb-2">Add All the Registration Numbers of Cabs Below</h4>
+            <h4 className="text-lg font-semibold mb-2">
+              Add All the Registration Numbers of Cabs Below
+            </h4>
             <div className="flex flex-row flex-wrap gap-2">
               {Array.from({ length: inputCount }).map((_, index) => (
                 <input
@@ -258,7 +271,6 @@ export const EditCabDetails = () => {
             Add Registration Field
           </button>
         </div>
-
 
         <div className="mt-4 w-full h-[30rem] rounded-md border-2 border-dotted border-black bg-gray-100 cursor-pointer">
           {!uploadFileBool && (
@@ -328,7 +340,7 @@ export const EditCabDetails = () => {
             </div>
           )}
         </div>
-        <div className='flex items-center justify-center'>
+        <div className="flex items-center justify-center">
           <button
             onClick={SubmitHandler}
             className="w-[15rem] mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded"
@@ -339,4 +351,4 @@ export const EditCabDetails = () => {
       </div>
     </>
   );
-}
+};

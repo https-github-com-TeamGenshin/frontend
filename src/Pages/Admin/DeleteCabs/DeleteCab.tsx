@@ -44,7 +44,7 @@ export const DeleteCab = () => {
                     message.error("No cabs to show");
                 }
                 setcabs(data.data);
-                console.log(data);
+                // console.log(data);
                 totalChunk.current = data.totalChunks;
             })
             .catch((err) => console.log(err));
