@@ -61,6 +61,7 @@ export const DeleteCab = () => {
         dispatch(sessionActions.addSessionNumberOfSeats({no_of_seats: cab.no_of_seats}))
         dispatch(sessionActions.addRegistered({registered: cab.registration_number}))
         dispatch(sessionActions.addFuel_type({fuel_type: cab.fuel_type}))
+        dispatch(sessionActions.addColour({colour: cab.colour}))
         navigate("/admindeletecabfunction")
     }
 

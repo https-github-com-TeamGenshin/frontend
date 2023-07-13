@@ -23,8 +23,12 @@ const sessionSlice = createSlice({
     driver_no : "",
     registered: [],
     fuel_type: "",
+    colour: "",
   },
   reducers: {
+    addColour(state,action){
+      state.colour = action.payload.colour;
+    },
     addSessionLocation(state, action) {
       state.location = action.payload.location;
     },
