@@ -1,7 +1,5 @@
 import { useRef, useState } from 'react'
-import { post$createUser } from '../../API/Register';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginAction } from '../../store/login-slice';
 import logo from "../../Assets/logo.png"
 import { AutoComplete, message } from 'antd';
 import {

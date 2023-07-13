@@ -1,6 +1,4 @@
-import React from 'react'
 import loaderGif from "../../Assets/loader.gif"
-
 export const Loader = ({ loader } : {loader : any}) => {
 
 

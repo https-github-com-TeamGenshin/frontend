@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 export const Unauthorized = () => {
 
     const navigate = useNavigate()

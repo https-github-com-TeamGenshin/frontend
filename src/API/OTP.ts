@@ -8,7 +8,7 @@ interface validateEmail {
 
 export const post$validateEmail = async (data : validateEmail["Req"]) => {
     try{
-        console.log(data)
+        // console.log(data)
         const response = await axios.post("otp/validateEmail", data)
         return {
             status: 200,

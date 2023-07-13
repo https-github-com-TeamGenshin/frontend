@@ -1,9 +1,14 @@
 import axios from "axios";
+import { Response } from "./interfaces";
 import { ResponseForFiltered, ResponseForSearched } from "./interfaces";
 const headers = {
   Authorization: `bearer ${localStorage.getItem("token")}`,
   "Content-Type": "application/json",
 };
+
+export interface ResponseData {
+  Req: { status: number; data: Object | undefined };
+}
 
 export const put$getCabs = async (
   filters: object,
@@ -32,6 +37,21 @@ export const put$getCabs = async (
   }
 };
 
+export const put$getOneCab = async (data: any): Promise<ResponseData["Req"]> => {
+  try {
+    const response = await axios.put("api/cab/getOneCab", data, { headers });
+    return {
+      status: 200,
+      data: response.data.data,
+    };
+  } catch (error: any) {
+    return {
+      status: error.response?.status || 400,
+      data: error.response || "Internal Server Error",
+    };
+  }
+};
+
 export const put$searchCabs = async (
   search: string
 ): Promise<ResponseForSearched["Req"]> => {
@@ -54,4 +74,62 @@ export const put$searchCabs = async (
   }
 };
 
-// export const post$createCab = async ( data: Cab ): Promise
+export const post$createCab = async (data: any): Promise<Response["Req"]> => {
+  try {
+    const response = await axios.post("api/cab/createCab", data, { headers });
+    return {
+      status: 200,
+      data: response.data.data,
+    };
+  } catch (error: any) {
+    return {
+      status: error.response?.status || 400,
+      data: error.response || "Internal Server Error",
+    };
+  }
+};
+
+export const put$updateCab = async (data: any): Promise<Response["Req"]> => {
+  try {
+    const response = await axios.put("api/cab/updateCab", data, { headers });
+    return {
+      status: 200,
+      data: response.data.data,
+    };
+  } catch (error: any) {
+    return {
+      status: error.response?.status || 400,
+      data: error.response || "Internal Server Error",
+    };
+  }
+};
+
+export const put$deleteCabDetails = async (data: any): Promise<Response["Req"]> => {
+  try {
+    const response = await axios.put("api/cab/deleteCabDetails", data, { headers });
+    return {
+      status: 200,
+      data: response.data.data,
+    };
+  } catch (error: any) {
+    return {
+      status: error.response?.status || 400,
+      data: error.response || "Internal Server Error",
+    };
+  }
+
+};
+export const put$deleteOneCabDetails = async (data: any): Promise<Response["Req"]> => {
+  try {
+    const response = await axios.put("api/cab/deleteOneCabDetails", data, { headers });
+    return {
+      status: 200,
+      data: response.data.data,
+    };
+  } catch (error: any) {
+    return {
+      status: error.response?.status || 400,
+      data: error.response || "Internal Server Error",
+    };
+  }
+};

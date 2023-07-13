@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { MailOutlined, MobileOutlined, PhoneOutlined } from '@ant-design/icons';
-import logo from "../../Assets/logo.png"
-import { EmailVerification } from '../../Components/Popup/EmailVerification';
 import { useSelector, useDispatch } from 'react-redux';
-import cab from "../../Assets/cab.jpg"
 import { post$validateEmail } from '../../API/OTP';
 import jwtDecode from "jwt-decode"
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import { loginAction } from '../../store/login-slice';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from '../../config/firebase.config';
 import cab2 from "../../Assets/cab2.jpg"
-import { useNavigate } from 'react-router-dom';
 import { registerActions } from '../../store/register-slice';
 
 
@@ -36,10 +32,18 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
     const [phone, setphone] = React.useState("")
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const Handle$Email = () => {
         dispatch(loginAction.addloader({ loader: true }))
+
+        // //! following code is only for testing purpose
+        // dispatch(registerActions.addEmailVerfiy({ isEmailVerify: true }))
+        // dispatch(registerActions.addDriverEmailID({ email_id : email }))
+        // dispatch(loginAction.addloader({ loader: false }))
+        // return
+        // //!
+
+
         if (email === "") {
             message.error("Please enter email")
             dispatch(loginAction.addloader({ loader: false }))
@@ -71,7 +75,8 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
         );
     }
 
-    function onSignup(): void {
+    function
+        onSignup(): void {
         // setLoading(true);
         onCaptchVerify();
 
@@ -100,6 +105,14 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
 
     const Handle$Phone = () => {
         dispatch(loginAction.addloader({ loader: true }))
+
+        // //! following code is only for testing purpose
+        // dispatch(registerActions.addPhoneVerfiy({ isPhoneVerify: true }))
+        // dispatch(registerActions.addDriverMobileNo({ mobile_no: phone }))
+        // dispatch(loginAction.addloader({ loader: false }))
+        // return
+        // //!
+
         // console.log(phone)
         if (phone === "") {
             message.error("Please enter Phone Number")
@@ -220,7 +233,7 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
             setpage(2)
         }
         else {
-            
+            setpage(3)
         } 
     }
 
@@ -329,44 +342,9 @@ export const Page2 = ({ setpage }: { setpage: any }) => {
                                 <button onClick={() => Handle$Email()} className='w-[10vw] p-2 rounded-lg text-black bg-white'>Re-Send OTP</button>
                             </div> </>}
                     </div>}
-                    <button onClick={() => Handle$OnClick$Button$Done()} className='text-3xl bg-black text-white px-8 py-2 rounded-xl' >{ isDriver ? "Next" : "Login"}</button>
+                    <button onClick={() => Handle$OnClick$Button$Done()} className='text-3xl bg-black text-white px-8 py-2 rounded-xl' >Next</button>
                 </div>
             </div>
-        </div>
-    )
-
-    return (
-        <div>
-            <>
-                <div className={` ${UserPopupVal ? "blur-sm" : ""} bg-[#082000] h-screen w-screen flex flex-col items-center justify-center`}>
-                    <div className='text-white p-8 flex flex-col items-center gap-4'>
-                        <img className='w-[60vw]' src={logo}></img>
-                        <p className='text-2xl font-semibold text-center'>Verify with the Below Options</p>
-                    </div>
-                    <div className='flex w-[80vw] flex-col gap-5 '>
-                        <div onClick={() => setUserPopup(1)} className={` ${isEmailVerify ? "pointer-events-none" : ""} bg-[#d9d9d9] flex items-center gap-3 p-3 rounded-xl`}>
-                            <MailOutlined className='text-6xl text-slate-500' />
-                            <div>
-                                <p className='font-bold'>E-Mail</p>
-                                {isEmailVerify ? <p>Email Verified !!!</p> : <p>Verification using E-mail</p>}
-                            </div>
-                        </div>
-                        <div className='bg-[#d9d9d9] flex items-center gap-3 p-3 rounded-xl'>
-                            <MobileOutlined className='text-6xl text-slate-500' />
-                            <div>
-                                <p className='font-bold'>Phone</p>
-                                <p>Verification using Phone</p>
-                            </div>
-                        </div>
-                    </div >
-                </div>
-                {
-                    UserPopupVal && <div className=' bg-transparent bg-slate-200 absolute top-0 left-0 h-screen w-screen z-10'></div>
-                }
-                {
-                    UserPopupVal === 1 && <EmailVerification setUserPopup={setUserPopup} />
-                }
-            </>
         </div>
     )
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-import { post$AcceptedOneRequestOfUser } from '../../API/Accepted';
 const BeforeOrAfter = (dateTime: string) => {
     const currentDateTime = new Date();
 
@@ -23,12 +22,6 @@ export const Card = ({ data, bora } : {data : any, bora : number}) => {
     const dateTime = data.start_date
 
     const [show, setshow] = React.useState<boolean>(false)
-
-    const OnclickEvent = async () => {
-        // await post$AcceptedOneRequestOfUser({_id: }).then((data) => {
-        // console.log(data);
-        // })
-    }
 
     return (
         <div>

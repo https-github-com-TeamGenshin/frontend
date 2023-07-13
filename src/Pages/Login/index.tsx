@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { post$loginUser } from "../../API/Login";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
-import { useDispatch, useSelector } from "react-redux";
 import logo from "../../Assets/logo.png";
 import {
   UserOutlined,
@@ -27,8 +26,12 @@ export const Login = () => {
     post$loginUser(data).then((res: any) => {
       // console.log(res);
       if (res && res?.status === 200) {
+        // console.log(res.data.data.role);
         if(res.data.data.role === "user"){
           navigate("/home");
+        }
+        else if (res.data.data.role === "driver") {
+          navigate("/driverhome");
         }
         else if(res.data.data.role === "Admin"){
           navigate("/adminhome");
@@ -36,10 +39,9 @@ export const Login = () => {
         message.success("Login Successful");
       } else if ((res && res.status === 400) || res.status === 404) {
         post$loginDriver(data).then((res: any) => {
-          // console.log(res);
           if (res && res.status === 200) {
             
-            navigate("/home");
+            navigate("/driverhome");
             message.success("Login Successful");
           } else if ((res && res?.status === 400) || res?.status === 404) {
             message.error("Invalid Credentials");
@@ -60,7 +62,7 @@ export const Login = () => {
           <UserOutlined className="text-2xl" />
           <input
             ref={usernameRef}
-            className=" outline-none p-2 w-[20vw]"
+            className=" outline-none p-2 w-[24vw]"
             placeholder="Email Address"
           />
         </div>
@@ -86,7 +88,7 @@ export const Login = () => {
         >
           LOGIN
         </button>
-        <button className="text-[#ff942b]">Forgot Password</button>
+        {/* <button className="text-[#ff942b]">Forgot Password</button> */}
         <div className="flex justify-end w-[30vw] text-[#ff942b]">
           <button onClick={() => navigate("/register")}>Register now!</button>
         </div>

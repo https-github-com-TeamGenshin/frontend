@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Loader } from '../../../Components/Loader/Loader';
 import { Rate } from "antd";
 

@@ -17,14 +17,14 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
   
 
   const Handle$Response$VerifyToken = (data: any) => {
-    console.log(data.data.role);
+    // console.log(data.data.role);
     dispatch(loginAction.addloader({ loader: false }));
     if (data.status === 500) {
       message.error(data.data);
     } else {
       dispatch(sessionActions.addSessionUserID({ user_id: _id }));
       let object: Object;
-      console.log(data.data.pending_request)
+      // console.log(data.data.pending_request)
       if (data.data.role === "user") {
         object = {
           _id: data.data.id,
@@ -37,11 +37,14 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
         };
         dispatch(loginAction.addLogin({ ...object }));
         setPendingRequest(data.data.pending_request);
+        if(first){
+          navigate("/home")
+        }
       }
       if (data.data.role === "driver") {
         object = {
           id: data.data._id,
-          username: data.data.username,
+          name: data.data.username,
           email_id: data.data.email_id,
           mobile_no: data.data.mobile_no,
           rating: data.data.rating,
@@ -52,6 +55,9 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
           role: data.data.role,
         };
         dispatch(loginAction.addDriverLogin({ ...object }));
+        if(first){
+          navigate("/driverhome")
+        }
       }
       if (data.data.role === "Admin") {
         object = {
@@ -63,6 +69,9 @@ const UserRole = ({ children, access }: { children: any; access: string }) => {
           role: data.data.role,
         };
         dispatch(loginAction.addLogin({ ...object }));
+        // if(first){
+        //   navigate("/adminhome")
+        // }
       }
       setFirst(false);
     }

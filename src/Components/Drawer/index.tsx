@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { LogoutOutlined, CloseOutlined, BackwardOutlined, SettingOutlined, NotificationOutlined, ForwardOutlined } from '@ant-design/icons';
+import { useEffect } from 'react'
+import { LogoutOutlined, CloseOutlined } from '@ant-design/icons';
 import logo from "../../Assets/logo-light.png"
 import "./Drawer.css"
 import { useDispatch } from 'react-redux';
@@ -17,10 +17,8 @@ export const Drawer = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const { name, email_id, mobile_no, location } = useSelector((state: any) => state.login)
+    const { username, name, email_id, mobile_no, location } = useSelector((state: any) => state.login)
     const { showDrawer } = useSelector((state: any) => state.utils)
-
-    // console.log(showDrawer)
 
     const Logout = () => {
         message.success("Logout Successfully")
@@ -30,6 +28,7 @@ export const Drawer = () => {
                 content.style.display = "none"
             }
         localStorage.removeItem("token")
+        dispatch(utilsActions.toggleDrawer({ showDrawer: 0 }))
         navigate("/")
     }
 
@@ -50,32 +49,17 @@ export const Drawer = () => {
         </div>
         <div className='flex bg-slate-100 p-5 flex-col justify-center items-center gap-3'>
             <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTtMfy4lLEvhrLkv8FRibbj2rJaHYFEqTPmQ&usqp=CAU' className='w-20 h-20 rounded-full shadow-lg border-2 '></img>
-            <section className='px-3 h-7 text-center  shadow-lg border'>{name}</section>
+            <section className='px-3 h-7 text-center  shadow-lg border'>{name ?? username}</section>
             <section className='px-3 h-7 text-center  shadow-lg border'>{email_id}</section>
             <section className='px-3 h-7 text-center  shadow-lg border'>{mobile_no}</section>
 
         </div>
-        {/* <div className='flex flex-col items-center gap-5'>
-            <div className='text-[10px] font-bold'>MAIN</div>
-            <SettingOutlined className='text-xl' />
-            <NotificationOutlined className='text-xl' />
-            <LogoutOutlined className='text-xl' />
-        </div> */}
         <div className='flex flex-col items-center gap-5'>
-            {/* <div className='text-[10px] font-bold'>SETTINGS</div>
-            <div className='flex items-center gap-3'>
-                <SettingOutlined className='text-xl' /> <p>Settings</p>
-            </div>
-            <div className='flex items-center justify-center gap-3'>
-                <NotificationOutlined className='text-xl' /> <p>Notification</p>
-            </div> */}
             <div onClick={() => Logout()} className=' cursor-pointer flex items-center justify-center gap-3'>
                 <LogoutOutlined className='text-xl' /> <p>Logout</p>
             </div>
         </div>
     </div>
-
-
 
     return (
         <div id="drawer" className={`absolute top-0 

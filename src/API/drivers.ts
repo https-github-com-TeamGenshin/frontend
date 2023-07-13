@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ResponseForFiltered, ResponseForSearched } from "./interfaces";
+import { ResponseForFiltered} from "./interfaces";
 import { loginUserType } from "./Login";
 
 const headers = {
@@ -12,6 +12,7 @@ export const post$loginDriver = async (
 ): Promise<loginUserType["Req"]> => {
   try {
     const response = await axios.post(`api/driver/loginDriver`, body);
+    console.log(response)
     localStorage.setItem("token", response.data.token);
     return {
       status: response.status,
@@ -24,6 +25,8 @@ export const post$loginDriver = async (
     };
   }
 };
+
+ 
 
 export const put$getDrivers = async (
   filters: object,
@@ -52,3 +55,122 @@ export const put$getDrivers = async (
     };
   }
 };
+
+export const get$getRequest = async () => {
+  // console.log(headers)
+  try {
+    const res = await axios.get("api/driver/pending", {
+      headers,
+    });
+    return {
+      status: res.status,
+      data: res.data.data,
+    };
+  } catch (err: any) {
+    return {
+      status: err.response.status,
+      data: err.response.data.message,
+    };
+  }
+};
+
+export const get$getAccepted = async () => {
+  try {
+    const res = await axios.get("api/driver/accepted", {
+      headers,
+    });
+    return {
+      status: res.status,
+      data: res.data.data,
+    };
+  } catch (err: any) {
+    return {
+      status: err.response.status,
+      data: err.response.data.message,
+    };
+  }
+};
+
+export const post$RequestAccepted = async (data : any) => {
+  try {
+    const res = await axios.put("api/request/acceptRequest", data, {
+      headers,
+    });
+    // console.log(res)
+    return {
+      status: res.data.data.status,
+      data: res.data.data.data,
+    };
+  } catch (err: any) {
+    return {
+      status: err.response.status,
+      data: err.response.data.message,
+    };
+  }
+}
+
+export const post$RequestRejected = async (data: any) => {
+  try {
+    const res = await axios.put("api/request/rejectRequest", data, {
+      headers,
+    });
+    // console.log(res);
+    return {
+      status: res.data.data.status,
+      data: res.data.data.data,
+    };
+  } catch (err: any) {
+    return {
+      status: err.response.status,
+      data: err.response.data.message,
+    };
+  }
+};
+
+export const get$getOneDriver = async () => {
+  try {
+    const res = await axios.get("api/driver/getOneDriver", {
+      headers,
+    });
+    return {
+      status: res.status,
+      data: res.data.data,
+    };
+  } catch (err: any) {
+    return {
+      status: err.response.status,
+      data: err.response.data.message,
+    };
+  }
+};
+
+
+export const put$updateDriver = async (data : any) => {
+  try {
+    const res = await axios.put("api/driver/updateDriver", data, {headers});
+    return {
+      status: res.status,
+      data: res.data.data,
+    };
+  } catch (err: any) {
+    return {
+      status: err.response.status,
+      data: err.response.data.message,
+    };
+  }
+}
+
+export const put$deleteDriver = async (data : any) => {
+  try {
+    const res = await axios.put("api/driver/deleteDriver", data, {headers});
+    return {
+      status: res.status,
+      data: res.data.data,
+    };
+  } catch (err: any) {
+    return {
+      status: err.response.status,
+      data: err.response.data.message,
+    };
+  }
+}

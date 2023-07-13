@@ -50,11 +50,12 @@ export const Cabs = () => {
 
     put$getCabs(DataToSend, chunk)
       .then((data) => {
+        
         if (data.totalChunks === 0) {
           message.error("No cabs to show");
         }
         setcabs(data.data);
-        // console.log(data);
+        console.log(data);
         totalChunk.current = data.totalChunks;
       })
       .catch((err) => console.log(err));

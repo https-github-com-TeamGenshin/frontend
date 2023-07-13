@@ -6,16 +6,10 @@ import { post$verifyUserToken } from "../../API/Login";
 import { Navigator } from "../../Components/Navigator";
 import { useNavigate } from "react-router-dom";
 
-
 export const Request = () => {
 
   const [Data, setData] = useState<any>({});
-  const [RealTimeData, setRealTimeData] = useState<any>([]);
-  const [dateOnly, setDateOnly] = useState<any>("");
   const timeref = useRef<any>(null);
-
-  const navigate = useNavigate();
-
 
   const loginSelector = useSelector((state: any) => state.login);
 
@@ -24,13 +18,13 @@ export const Request = () => {
 
     if (pendingRequest === "" || pendingRequest === undefined) {
       post$verifyUserToken().then((response: any) => {
-        console.log(response);
+        // console.log(response);
         const data: any = response?.data;
         pendingRequest = data?.pending_request;
 
         if (pendingRequest) {
           post$getRequest({ request_id: pendingRequest }).then((response) => {
-            console.log(response);
+            // console.log(response);
             setData(response.data);
 
             Pusher.logToConsole = true;
@@ -40,13 +34,13 @@ export const Request = () => {
 
             const channel = pusher.subscribe("Requests");
             channel.bind(pendingRequest, function (data: any) {
-              console.log(data);
+              // console.log(data);
             });
           });
         }
       });
     } else {
-      console.log(pendingRequest)
+      // console.log(pendingRequest)
       post$getRequest({ request_id: pendingRequest }).then((response) => {
         setData(response.data)
         Pusher.logToConsole = true;
@@ -56,8 +50,7 @@ export const Request = () => {
 
         const channel = pusher.subscribe("Requests");
         channel.bind(pendingRequest, function (data: any) {
-          if (data?.request_status === "Accepted") {
-            console.log("Accepted")
+          if (data?.request_status === "Accepted" || data?.request_status === "Rejected") {
             setData(data)
           }
         });
@@ -68,18 +61,19 @@ export const Request = () => {
   }, []);
 
   useEffect(() => {
-    console.log(Data)
-    var interval : any
+    // console.log(Data)
+    var interval: any
     if (Data?.request_status === "Pending") {
       const time = new Date(Data.createdAt)
-      console.log(time.getTime())
+      // console.log(time.getTime())
       time.setMinutes(time.getMinutes() + 15);
       interval = setInterval(() => {
-        console.log("Hello")
+        // console.log("Hello")
         const timeDifference = (time.getTime() - new Date().getTime()) / 1000;
         if (!timeDifference) return
         if (timeDifference < 0) {
-          // navigate("/requests")
+          setData({})
+          return clearInterval(interval);
         }
         const minutes = Math.floor(timeDifference / 60);
         const seconds = Math.floor(timeDifference % 60);
@@ -88,7 +82,7 @@ export const Request = () => {
       }, 1000)
       // console.log("Came Here")
     }
-    if (Data?.request_status === "Accepted") {
+    if (Data?.request_status === "Accepted" || Data?.request_status === "Rejected") {
       clearInterval(interval);
     }
 
@@ -102,29 +96,35 @@ export const Request = () => {
   const link = `https://maps.google.com/maps?q=${Data?.location?.latitude},${Data.location?.longitude}&z=15&output=embed`
   // console.log(link)
   // Display the request details
+
   return (
     <div className="bg-slate-300 w-screen h-screen">
       <Navigator />
       {
         Data._id !== undefined ?
-          <div className="w-full flex justify-center">
+          <div className="w-full  justify-center">
+            {Data?.request_status === "Pending" && Data.createdAt && <div className="bg-red-800 text-white text-xl text-center p-3 w-screen" ref={timeref}></div>}
+            <div className="flex justify-end w-full">
+              <div className="text-green-500 font-bold text-xl p-3">{Data.request_status}</div>
+
+            </div>
             <div className="bg-slate-300 w-[80vw] p-5 flex items-center space-x-4 ">
-              <div className="relative w-32 h-32 rounded-full overflow-hidden">
-                <img src={Data.imageurl} alt="Profile Image" className="object-cover w-full h-full" />
+              <div className="flex flex-col items-center justify-center">
+                <img src={Data.imageurl} alt="Profile Image" className=" rounded-full object-cover w-32 h-32" />
+                <div className="text-gray-800 font-bold">{Data.driver_name}</div>
               </div>
               <div>
                 <div className="text-gray-600">CreatedAt: {new Date(Data.createdAt).toLocaleDateString(undefined, Dateoptions)} {new Date(Data.createdAt).toLocaleTimeString()}</div>
-                <div className="text-gray-800 font-bold">Driver Name: {Data.driver_name}</div>
                 <div className="text-gray-800 font-bold">Car Name: {Data.model_name}</div>
                 <div>Number Plate: {Data.model_registration_no}</div>
                 <div>Journey Start Date: {new Date(Data.start_date).toLocaleDateString()}</div>
                 <div>Journey Start Time: {new Date(Data.start_date).toLocaleTimeString()}</div>
-                {<iframe src={link}></iframe>}
-                <div className="text-gray-600">Status: {Data.request_status}</div>
-                {Data?.request_status === "Pending" && <div ref={timeref}></div> } 
               </div>
             </div>
-          </div> : <div className="text-center text-gray-700 mt-4">
+            {<iframe className="w-screen h-[23vw]" src={link}></iframe>}
+          </div>
+          :
+          <div className="text-center text-gray-700 mt-4">
             <div className="max-w-md mx-auto">
               <h2 className="text-2xl font-bold">No Pending Requests</h2>
               <p>You have no pending requests at this time.</p>

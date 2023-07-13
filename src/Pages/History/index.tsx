@@ -1,11 +1,7 @@
 import React, { useEffect } from 'react'
 import { Navigator } from '../../Components/Navigator';
-import { DownOutlined } from '@ant-design/icons';
 import { Card } from './Card';
 import { get$AcceptedRequestsOfUser } from '../../API/Accepted';
-// type
-// car name
-// payable amount
 
 
 
@@ -15,12 +11,10 @@ export const History = () => {
 
   useEffect(() => {
     get$AcceptedRequestsOfUser().then((data: any) => {
-      console.log(data)
+      // console.log(data)
       setData(data.data)
     })
   }, [])
-
-  // const dateTime = "2023-07-08 02:08:33"
 
   return(
   <>

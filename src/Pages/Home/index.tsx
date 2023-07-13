@@ -1,12 +1,9 @@
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { Drawer } from "../../Components/Drawer";
+import { useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../store/login-slice";
-import { MenuOutlined } from "@ant-design/icons";
 import { message } from "antd";
-import logo from "../../Assets/logo.png";
 import { Navigator } from "../../Components/Navigator";
 import { CitiesAutoComplete } from "../../Components/Autocomplete/Cities";
 import { sessionActions } from "../../store/session-slice";
@@ -89,7 +86,7 @@ const Home = () => {
               onClick={() => {
                 if (Validate$TypeandCity()) navigate("/cabs");
               }}
-              className="cursor-pointer rounded-2xl bg-[#14224A] p-2 text-center font-bold w-[10vw] text-white"
+              className="cursor-pointer rounded-2xl bg-[#14224A] p-2 text-center font-bold w-fit text-white"
             >
               Explore
             </div>

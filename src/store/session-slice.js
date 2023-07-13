@@ -13,17 +13,26 @@ const sessionSlice = createSlice({
     cab_id: "",
     model_no: "",
     kms: 0,
+    no_of_seats: 0,
     time_required: 0,
     total_amount: "",
     model_name: "",
     start_date: "",
     hourly_rate: 0,
     kms_rate: 0,
-    driver_no : ""
+    driver_no : "",
+    registered: [],
+    fuel_type: "",
   },
   reducers: {
     addSessionLocation(state, action) {
       state.location = action.payload.location;
+    },
+    addFuel_type(state,action){
+      state.fuel_type = action.payload.fuel_type;
+    },
+    addRegistered(state,action){
+      state.registered = action.payload.registered;
     },
     addSessionUserID(state, action) {
       state.user_id = action.payload.user_id;
@@ -36,6 +45,9 @@ const sessionSlice = createSlice({
     },
     addSessionCabID(state, action) {
       state.cab_id = action.payload.cab_id;
+    },
+    addSessionNumberOfSeats(state,action){
+      state.no_of_seats = action.payload.no_of_seats;
     },
     addSessionModelNo(state, action) {
       state.model_no = action.payload.model_no;

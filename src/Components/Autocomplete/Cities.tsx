@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent, useRef } from "react";
+import {useState, ChangeEvent, useRef } from "react";
 import { Cities } from "../../Pages/Register/Cities";
 
 export const CitiesAutoComplete = ({
@@ -73,7 +73,7 @@ export const CitiesAutoComplete = ({
           setc([...Cities.map((city) => city.name)]);
           setflim(true);
         }}
-        className="w-[20vw] cursor-pointer bg-white p-1 rounded text-center"
+        className="w-[20vw] text-black cursor-pointer bg-white p-1 rounded text-center"
       >
         {city !== "" ? city : "Select City"}
       </div>

@@ -16,10 +16,19 @@ import { Unauthorized } from "./Pages/Unauthorized";
 // import Requests
 // import { New } from './Components/Maps/New';
 import { Request } from "./Pages/Requests";
-import { AdminHome } from "./Pages/Admin/AdminHome";
-import { CreateCab } from "./Pages/Admin/CreateCab";
+import { AdminHome } from "./Pages/Admin/Home/AdminHome";
+import { CreateCab } from "./Pages/Admin/CreateCab/CreateCab";
 import { DriverHome } from "./Pages/DriverProgram/Home";
+import { Driveraccepted } from "./Pages/DriverProgram/Accepted";
+import { DriverPending } from "./Pages/DriverProgram/Pending";
+import { DriverUpdate } from "./Pages/DriverProgram/Update";
+import { DeleteCab } from "./Pages/Admin/DeleteCabs/DeleteCab";
 import Role from "./Validator/UserRole";
+import { DeleteDriver } from "./Pages/Admin/DeleteDrivers/DeleteDriver";
+import { UpdateCabs } from "./Pages/Admin/UpdateCabs/UpdateCabs";
+import { EditCabDetails } from "./Pages/Admin/UpdateCabs/EditCabDetails";
+import { DeleteCabFunction } from "./Pages/Admin/DeleteCabs/DeleteCabFunction";
+
 function App() {
   setBaseURL();
 
@@ -42,10 +51,10 @@ function App() {
           }
         />
         <Route
-          path="/driverrequests"
+          path="/driverpending"
           element={
               <Role access="driver" >
-              <DriverHome />
+              <DriverPending />
             </Role>
           }
         />
@@ -53,7 +62,7 @@ function App() {
           path="/driveraccepted"
           element={
               <Role access="driver" >
-              <DriverHome />
+              <Driveraccepted />
             </Role>
           }
         />
@@ -61,15 +70,7 @@ function App() {
           path="/driverupdate"
           element={
               <Role access="driver" >
-              <DriverHome />
-            </Role>
-          }
-        />
-        <Route
-          path="/driveraccepted"
-          element={
-            <Role access="driver" >
-              <DriverHome />
+              <DriverUpdate />
             </Role>
           }
         />
@@ -86,6 +87,46 @@ function App() {
           element={
             <Role access="Admin" >
               <AdminHome />
+            </Role>
+          }
+        />
+        <Route
+          path="/editcabdetails"
+          element={
+            <Role access="Admin" >
+              <EditCabDetails />
+            </Role>
+          }
+        />
+        <Route
+          path="/updateCabs"
+          element={
+            <Role access="Admin" >
+              <UpdateCabs />
+            </Role>
+          }
+        />
+        <Route
+          path="/admindeletecab"
+          element={
+            <Role access="Admin" >
+              <DeleteCab />
+            </Role>
+          }
+        />
+        <Route
+          path="/admindeletedriver"
+          element={
+            <Role access="Admin" >
+              <DeleteDriver />
+            </Role>
+          }
+        />
+        <Route
+          path="/admindeletecabfunction"
+          element={
+            <Role access="Admin" >
+              <DeleteCabFunction />
             </Role>
           }
         />

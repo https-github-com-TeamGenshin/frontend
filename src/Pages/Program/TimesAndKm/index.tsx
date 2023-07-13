@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Input, Button } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { sessionActions } from "../../../store/session-slice";
@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { DatePicker } from "antd";
 import { post$createRequest } from "../../../API/Request";
 import { loginAction } from "../../../store/login-slice";
-import { TimePicker } from "antd";
-import dayjs from "dayjs";
 
 export const TimeAndKm = () => {
   const { kms_rate, hourly_rate } = useSelector((state: any) => state.session);
@@ -22,13 +20,8 @@ export const TimeAndKm = () => {
   const loginSelector = useSelector((state: any) => state.login);
 
   function sendWhatsAppMessage(phoneNumber: string, message: string) {
-    // Format the phone number by removing all non-numeric characters
     var formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
-
-    // Create the WhatsApp URL
     var url = 'https://wa.me/' + formattedPhoneNumber + '?text=' + encodeURIComponent(message);
-
-    // Open the WhatsApp URL in a new window or tab
     window.open(url);
   }
   
@@ -44,20 +37,6 @@ export const TimeAndKm = () => {
         total_amount: byKmorTime ? hourly_rate * Kilometer : kms_rate * Time,
       })
     );
-    // console.log(Kilometer, Time, sessionSelector.total_amount)
-    // console.log({
-    //   user_id: loginSelector._id,
-    //   driver_id: sessionSelector.driver_id,
-    //   type: sessionSelector.type,
-    //   cab_id: sessionSelector.cab_id,
-    //   start_date: sessionSelector.start_date,
-    //   location: sessionSelector.location,
-    //   kms: sessionSelector.kms,
-    //   time_required: sessionSelector.time_required,
-    //   total_amount: sessionSelector.total_amount,
-    //   model_registration_no: sessionSelector.model_no,
-    //   model_name: sessionSelector.model_name,
-    // });
     await post$createRequest({
       user_id: loginSelector._id,
       driver_id: sessionSelector.driver_id,
@@ -83,9 +62,6 @@ export const TimeAndKm = () => {
     });
   };
 
-  const onChange = (date: any, dateString: any) => {
-    // console.log(date, dateString);
-  };
 
   return (
     <div className="flex flex-col items-center gap-10">

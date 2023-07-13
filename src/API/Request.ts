@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { Response } from "./interfaces";
 const headers = {
   Authorization: `bearer ${localStorage.getItem("token")}`,
   "Content-Type": "application/json",
@@ -22,24 +22,33 @@ interface createRequestType {
 }
 
 export const post$createRequest = async (data: createRequestType["Req"]) => {
-  // console.log("Hit")
-  const res = await axios
-    .post("api/request/createRequest", data, {
-      headers,
-    })
-    .catch((err) => console.log(err));
+  try {
+    // console.log("Hit")
+    const res = await axios
+      .post("api/request/createRequest", data, {
+        headers,
+      })
+      .catch((err) => console.log(err));
 
-  // console.log(res?.data);
-  return res?.data;
+    // console.log(res?.data);
+    return res?.data;
+  } catch (e) {
+    return null;
+  }
 };
 
 export const post$getRequest = async (data: { request_id: string }) => {
-  const res = await axios
-    .post("api/request/getRequests", data, {
-      headers,
-    })
-    .catch((err) => console.log(err));
+  try {
+    const res = await axios
+      .post("api/request/getRequests", data, {
+        headers,
+      })
+      .catch((err) => console.log(err));
 
-  //console.log(res?.data);
-  return res?.data;
+    //console.log(res?.data);
+    return res?.data;
+  } catch (e) {
+    return null;
+  }
 };
+
