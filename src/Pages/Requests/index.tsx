@@ -6,7 +6,6 @@ import { post$verifyUserToken } from "../../API/Login";
 import { Navigator } from "../../Components/Navigator";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../../store/login-slice";
-import { useDispatch } from "react-redux
 
 export const Request = () => {
   const [Data, setData] = useState<any>({});
@@ -14,7 +13,6 @@ export const Request = () => {
   const dispatch = useDispatch();
 
   const loginSelector = useSelector((state: any) => state.login);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     let pendingRequest: string = loginSelector.pendingRequest;
