@@ -6,23 +6,7 @@
 
 @keyframes drawer-width-key {
   from {
-    width: 0vw;
-  }
-
-  to {
-    width: 25vw;
-  }
-}
-
-.drawer-width-min {
-  animation-name: drawer-width-min-key;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes drawer-width-min-key {
-  from {
-    width: 50vw;
+    width: 0;
   }
 
   to {
@@ -42,7 +26,7 @@
   }
 
   to {
-    width: 0vw;
+    width: 0;
   }
 }
 

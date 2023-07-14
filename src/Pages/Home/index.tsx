@@ -61,7 +61,7 @@ const Home = () => {
         <div className=" p-6 flex gap-6 justify-around items-center">
           <select
             onChange={Handle$Onchange$VechileType}
-            className="text-center cursor-pointer p-1 rounded w-[20vw] outline-none"
+            className="text-center hover:scale-105 cursor-pointer p-1 rounded w-[20vw] outline-none"
             name="Vehicle"
           >
             <option value="">Vehicle Type</option>
@@ -88,7 +88,7 @@ const Home = () => {
               onClick={() => {
                 if (Validate$TypeandCity()) navigate("/cabs");
               }}
-              className="cursor-pointer rounded-2xl bg-[#14224A] p-2 text-center font-bold w-[10vw] text-white"
+              className="cursor-pointer hover:scale-105 rounded-2xl bg-[#14224A] p-2 text-center font-bold w-[10vw] text-white"
             >
               Explore
             </div>
@@ -107,7 +107,7 @@ const Home = () => {
               onClick={() => {
                 if (Validate$TypeandCity()) navigate("/drivers");
               }}
-              className="cursor-pointer bg-[#14224A] p-2 text-center font-bold rounded-xl w-[10vw] text-white"
+              className="cursor-pointer hover:scale-105 bg-[#14224A] p-2 text-center font-bold rounded-xl w-[10vw] text-white"
             >
               Explore
             </div>

@@ -28,7 +28,11 @@ export const Login = () => {
       if (res && res?.status === 200) {
         // console.log(res.data.data.role);
         if (res.data.data.role === "user") {
-          navigate("/home");
+          if (res.data.data.pending_request) {
+            navigate("/requests");
+          } else {
+            navigate("/home");
+          }
         } else if (res.data.data.role === "driver") {
           navigate("/driverhome");
         } else if (res.data.data.role === "Admin") {

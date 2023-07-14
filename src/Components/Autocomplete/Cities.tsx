@@ -1,4 +1,4 @@
-import {useState, ChangeEvent, useRef } from "react";
+import { useState, ChangeEvent, useRef } from "react";
 import { Cities } from "../../Pages/Register/Cities";
 
 export const CitiesAutoComplete = ({
@@ -13,7 +13,6 @@ export const CitiesAutoComplete = ({
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-
   document.getElementById("cityauto")?.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       setcity(cit[0]);
@@ -24,7 +23,6 @@ export const CitiesAutoComplete = ({
   setTimeout(() => {
     inputRef.current?.focus();
   }, 100);
-
 
   const HashFilter = (val: string) => {
     let cities: string[] = [];
@@ -39,7 +37,7 @@ export const CitiesAutoComplete = ({
   // console.log(city);
 
   return (
-    <div id = "cityauto" className="">
+    <div id="cityauto" className="">
       {flim && (
         <div className="h-screen w-screen overflow-auto text-center absolute top-0 left-0">
           <div className="bg-black">
@@ -50,7 +48,9 @@ export const CitiesAutoComplete = ({
                 HashFilter(event.target.value)
               }
             />
-            <button onClick={() =>  setflim(false)} className="text-white">Cancel</button>
+            <button onClick={() => setflim(false)} className="text-white">
+              Cancel
+            </button>
           </div>
           <div className=" min-h-screen bg-black opacity-90 flex flex-col gap-2">
             {cit.sort().map((c, i) => (
@@ -73,7 +73,7 @@ export const CitiesAutoComplete = ({
           setc([...Cities.map((city) => city.name)]);
           setflim(true);
         }}
-        className="w-[20vw] text-black cursor-pointer bg-white p-1 rounded text-center"
+        className="w-[20vw] hover:scale-105 text-black cursor-pointer bg-white p-1 rounded text-center"
       >
         {city !== "" ? city : "Select City"}
       </div>

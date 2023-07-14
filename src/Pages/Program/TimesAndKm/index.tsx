@@ -67,41 +67,50 @@ export const TimeAndKm = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-10 h-screen w-screen">
-      <div className="text-xl">Set Time and Kilometers</div>
-      <div className="flex flex-col gap-10">
-        <Input
-          onChange={(ev) => setkilometer(Number(ev.target.value))}
-          type="number"
-          placeholder="Kilometers"
-          className="w-48 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <Input
-          onChange={(ev) => settime(Number(ev.target.value))}
-          type="number"
-          placeholder="Time"
-          className="w-48 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      <div className="text-xl text-blue-500">Set Time and Kilometers</div>
+      <div>
+        <p>Select the start Date and Time</p>
+        <DatePicker
+          showTime
+          onChange={(_, dateString: any) => {
+            dispatch(
+              sessionActions.addSessionStartDate({ start_date: dateString })
+            );
+          }}
+          className="w-80 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-      <DatePicker
-        showTime
-        onChange={(_, dateString: any) => {
-          dispatch(
-            sessionActions.addSessionStartDate({ start_date: dateString })
-          );
-        }}
-        className="w-48 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+      <div className="flex flex-col gap-10">
+        <div>
+          <p>Enter the Approx Distance (in Kilometer)</p>
+          <Input
+            onChange={(ev) => setkilometer(Number(ev.target.value))}
+            type="number"
+            placeholder="Kilometers"
+            className="w-80 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <p>Enter the Approx Time (in Hours)</p>
+          <Input
+            onChange={(ev) => settime(Number(ev.target.value))}
+            type="number"
+            placeholder="Time"
+            className="w-80 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
       <div>
         <p className="mb-2 ">Select Rate for Journey</p>
         <select
           onChange={(e) => setbyKmorTime(e.target.value === "Km")}
-          className="w-48 p-2 border border-gray-300  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-80 hover:scale-105 p-2 border border-gray-300  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="Km">By Kilometer</option>
           <option value="Time">By Time</option>
         </select>
       </div>
-      <div className="flex flex-col gap-4 items-center justify-center">
+      <div className="flex  flex-col gap-4 items-center justify-center">
         <div className="flex gap-10">
           <div>Kilometer Rate: {byKmorTime && hourly_rate * Kilometer}</div>
           <div>Hourly Rate: {!byKmorTime && kms_rate * Time}</div>
@@ -113,7 +122,7 @@ export const TimeAndKm = () => {
         </div> */}
         <Button
           onClick={() => Handle$onClick$Confirm()}
-          className="px-12  bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-md"
+          className="px-12 hover:scale-105 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-md"
         >
           CONFIRM
         </Button>

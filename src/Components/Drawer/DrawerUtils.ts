@@ -26,6 +26,8 @@ export const upDateDrawerBackTo0 = (dispatch: any) => {
   }
   document.getElementById("drawer")?.classList.add("hidden");
   document.getElementById("drawer")?.classList.add("drawer-width-0");
+  const insideElement = document.getElementById("inside-content");
+  if (insideElement) insideElement.classList.add("hidden");
   setTimeout(() => {
     dispatch(utilsActions.toggleDrawer({ showDrawer: 0 }));
   }, 1000);

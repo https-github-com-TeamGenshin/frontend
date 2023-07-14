@@ -54,10 +54,9 @@ export const put$getDrivers = async (
   }
 };
 
-export const get$getRequest = async () => {
-  // console.log(headers)
+export const post$getRequest = async (data: any) => {
   try {
-    const res = await axios.get("api/driver/pending", {
+    const res = await axios.post("api/driver/pending", data, {
       headers,
     });
     return {
@@ -72,9 +71,9 @@ export const get$getRequest = async () => {
   }
 };
 
-export const get$getAccepted = async () => {
+export const post$getAccepted = async (data: any) => {
   try {
-    const res = await axios.get("api/driver/accepted", {
+    const res = await axios.post("api/driver/accepted", data, {
       headers,
     });
     return {
