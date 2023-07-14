@@ -42,7 +42,7 @@ export const Navigator = () => {
               Requests
             </Link>
             <Link to="/history" className="text-2xl">
-              History
+              Accepted
             </Link>
           </>
         )}

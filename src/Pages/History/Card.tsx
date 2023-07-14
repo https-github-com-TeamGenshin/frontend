@@ -17,15 +17,7 @@ const BeforeOrAfter = (dateTime: string) => {
   }
 };
 
-export const Card = ({
-  i,
-  data,
-  bora,
-}: {
-  i: number;
-  data: any;
-  bora: number;
-}) => {
+export const Card = ({ data, bora }: { data: any; bora: number }) => {
   const dateTime = data.start_date;
 
   const [show, setshow] = React.useState<boolean>(false);
@@ -38,24 +30,23 @@ export const Card = ({
   //       // setData(data.data);
   //     });
   //   }, []);
-
+  // console.log(data.driver_name);
+  // console.log(data.imageurl);
   return (
-    <div className="rounded-lg" key={i}>
+    <div className="rounded-lg">
       <div
-        className={`${
-          BeforeOrAfter(dateTime) === bora && "hidden"
-        } w-full flex flex-col items-center justify-center transition-opacity duration-300 mb-2 rounded-lg`}
+        className={`w-full flex flex-col items-center justify-center transition-opacity duration-300 mb-2 rounded-lg`}
       >
         <div className="bg-white w-[50vw] p-5 flex justify-between items-center gap-10 transition-transform duration-300 rounded-lg hover:scale-105 ">
           <img src={data.imageurl} className="w-24 h-24 rounded-full" />
           <div>
             <div className="text-lg">Driver Name: {data.driver_name}</div>
             <div className="text-lg">
-              Start Date: {new Date(data.start_date).toLocaleDateString()}
+              Start Date and Time:{" "}
+              {new Date(data.start_date).toLocaleDateString()}{" "}
+              {new Date(data.start_date).toLocaleTimeString()}
             </div>
-            <div className="text-lg">
-              Start Time: {new Date(data.start_date).toLocaleTimeString()}
-            </div>
+            <div className="text-lg">Car Model: {data.model_name}</div>
             <div className="text-lg">
               Register Number: {data.model_registration_no}
             </div>

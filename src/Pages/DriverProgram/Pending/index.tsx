@@ -8,6 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { post$verifyUserToken } from "../../../API/Login";
 import { useSelector } from "react-redux";
+import Pusher from "pusher-js";
 
 export const DriverPending = () => {
   const [Data, setData] = React.useState<any>([]);
@@ -17,6 +18,20 @@ export const DriverPending = () => {
       .then((res) => {
         console.log(res);
         setData(res.data);
+
+        Pusher.logToConsole = true;
+        const pusher = new Pusher("2d17248b4e85ba67a14c", {
+          cluster: "ap2",
+        });
+
+        const channel = pusher.subscribe("driver");
+        channel.bind(driverSelector._id, function (data: any) {
+          if (data) {
+            post$getRequest({ _id: driverSelector._id }).then((res) => {
+              setData(res.data);
+            });
+          }
+        });
       })
       .catch((err) => {
         console.log(err);

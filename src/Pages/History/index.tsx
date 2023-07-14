@@ -7,13 +7,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { post$verifyUserToken } from "../../API/Login";
 
 export const History = () => {
-  const [Data, setData] = React.useState<any>([]);
+  const [upcomingData, setUpcomingData] = React.useState<any>([]);
+  const [historyData, setHistoryData] = React.useState<any>([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     get$AcceptedRequestsOfUser().then((data: any) => {
       console.log(data.data);
-      setData(data.data);
+      data.data.forEach((element: any) => {
+        if (new Date(element.start_date) > new Date()) {
+          setUpcomingData((prev: any) => [...prev, element]);
+        } else {
+          setHistoryData((prev: any) => [...prev, element]);
+        }
+      });
+      console.log(upcomingData);
+      console.log(historyData);
+      // setData(data.data);
     });
 
     post$verifyUserToken().then((response: any) => {
@@ -44,13 +54,15 @@ export const History = () => {
       >
         <p className="text-center text-2xl p-4">Upcoming</p>
 
-        {Data.map((data: any, i: number) => {
-          return <Card i={i} data={data} bora={1} />;
+        {upcomingData.map((data: any, i: number) => {
+          console.log(data);
+          return <Card key={i} data={data} bora={1} />;
         })}
 
-        <p className="text-center text-2xl p-4">History</p>
-        {Data.map((data: any, i: number) => {
-          return <Card i={i} data={data} bora={-1} />;
+        <p className="text-center text-2xl p-4">Previous</p>
+        {historyData.map((data: any, i: number) => {
+          console.log(data);
+          return <Card key={i} data={data} bora={-1} />;
         })}
       </div>
     </>
